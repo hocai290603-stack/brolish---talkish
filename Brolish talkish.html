@@ -1,0 +1,1511 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#EE7A0C">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brolish talkish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFF7EE; --sheet:#FFFFFF; --ink:#4A2E14; --muted:#9A7B5C; --line:#F1E3D1;
+  --margin:#F6C99A; --red:#EE7A0C; --hl:#FFE2B8; --ok:#2E8B6E; --soft:#FBEEDD;
+  --okbg:#EAF7F0; --oktx:#2A6A4E; --upbg:#ECF4FC; --uptx:#2C5A85; --err:#D64545; --errbg:#FDECEC; --mid:#B7791F; --midbg:#FFF3DC;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#18130E; --sheet:#241C14; --ink:#F4E7D7; --muted:#B89D80; --line:#3A2E22;
+    --margin:#6B4A26; --red:#FF9A3C; --hl:#6B4A1F; --ok:#5CC4A0; --soft:#2E241A;
+    --okbg:#1C3027; --oktx:#9FE0C3; --upbg:#1B2838; --uptx:#AECFF0; --err:#FF8080; --errbg:#3A1E1E; --mid:#F0B85A; --midbg:#3A2C14;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#18130E; --sheet:#241C14; --ink:#F4E7D7; --muted:#B89D80; --line:#3A2E22;
+  --margin:#6B4A26; --red:#FF9A3C; --hl:#6B4A1F; --ok:#5CC4A0; --soft:#2E241A;
+  --okbg:#1C3027; --oktx:#9FE0C3; --upbg:#1B2838; --uptx:#AECFF0; --err:#FF8080; --errbg:#3A1E1E; --mid:#F0B85A; --midbg:#3A2C14;
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.55 "Be Vietnam Pro",system-ui,"PingFang SC","Noto Sans SC","Hiragino Sans","Malgun Gothic",sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2.5px solid var(--red);outline-offset:2px}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+.top-in{max-width:780px;margin:0 auto;padding:.7rem 1rem;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center}
+.brand{font-weight:800;color:var(--red);font-size:1.45rem;letter-spacing:-.01em;margin-right:auto}
+.brand span{color:var(--ink)}
+.pair{display:flex;align-items:center;gap:.3rem}
+select{background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:.35rem .5rem;max-width:9.5rem}
+.swap{border:0;background:none;font-size:1.15rem;cursor:pointer;padding:.2rem .35rem;border-radius:6px}
+.swap:hover{background:var(--soft)}
+.lvl{display:flex;align-items:center;gap:.35rem;font-size:.9rem;color:var(--muted)}
+.lvl select{font-weight:700;color:var(--ink)}
+
+.tabs{display:flex;gap:.25rem;max-width:780px;margin:0 auto;padding:0 .6rem}
+.tab{flex:1;background:none;border:0;padding:.6rem .4rem .55rem;cursor:pointer;color:var(--muted);font-weight:500;
+  border-bottom:3px solid transparent;position:relative;white-space:nowrap}
+.tab[aria-current="page"]{color:var(--ink);border-bottom-color:var(--red)}
+.badge{display:inline-block;min-width:1.25rem;padding:0 .3rem;margin-left:.3rem;border-radius:99px;background:var(--red);color:#fff;font-size:.72rem;line-height:1.25rem;font-weight:700}
+.badge:empty{display:none}
+
+@media (max-width:640px){
+  .tabs{position:fixed;left:0;right:0;bottom:0;max-width:none;background:var(--sheet);border-top:1px solid var(--line);
+    padding:0 .2rem env(safe-area-inset-bottom,0px);z-index:6}
+  .tab{font-size:.8rem;padding:.7rem .1rem;border-bottom:0;border-top:3px solid transparent}
+  .tab[aria-current="page"]{border-top-color:var(--red)}
+  main{padding-bottom:5.5rem!important}
+  select{max-width:7.6rem}
+}
+
+main{max-width:780px;margin:0 auto;padding:1.4rem 1rem 3rem}
+section[hidden]{display:none}
+h2{font-family:inherit;font-weight:600;font-size:1.6rem;margin:0 0 .3rem;letter-spacing:-.01em}
+h3{font-size:1rem;font-weight:700;margin:1.6rem 0 .5rem}
+.lead{color:var(--muted);margin:0 0 1.2rem;max-width:62ch}
+label.f{display:block;font-weight:600;font-size:.92rem;margin:1rem 0 .35rem}
+input[type=text],textarea{width:100%;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:.65rem .8rem}
+textarea{resize:vertical;font-family:inherit;font-size:1.08rem;line-height:1.7}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.row input[type=text]{flex:1;min-width:12rem}
+.btn{border:1.5px solid var(--red);color:var(--red);background:transparent;border-radius:9px;padding:.55rem 1rem;font-weight:600;cursor:pointer}
+.btn:hover{background:var(--soft)}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn.primary:hover{opacity:.9}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sm{padding:.25rem .6rem;font-size:.82rem;border-width:1px}
+.actions{margin-top:.8rem}
+.note{font-size:.88rem;color:var(--muted)}
+.warn{background:var(--soft);border-radius:10px;padding:.7rem .9rem;font-size:.92rem;margin-bottom:1rem}
+
+.status{display:flex;align-items:center;gap:.6rem;color:var(--muted);font-size:.92rem;margin-top:.7rem}
+.status[hidden]{display:none}
+.dot{width:.6rem;height:.6rem;border-radius:50%;background:var(--red);animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+.linkbtn{background:none;border:0;color:var(--red);text-decoration:underline;cursor:pointer;padding:0}
+
+/* Notebook sheet — the signature */
+.sheet{background:var(--sheet);border-radius:18px;border:1px solid var(--line);box-shadow:0 2px 6px rgba(120,80,30,.06);margin-top:1.2rem;padding:1rem 1.1rem 1.2rem 1.6rem;position:relative}
+.ruled{font-family:inherit;font-size:1.02rem;line-height:1.75;
+  padding:0;margin:.3rem 0 0;white-space:pre-wrap;word-break:break-word}
+del{color:var(--err);text-decoration:line-through;text-decoration-thickness:2px}
+ins{color:var(--ok);text-decoration:none;font-weight:600}
+mark{background:linear-gradient(transparent 38%,var(--hl) 38%,var(--hl) 92%,transparent 92%);color:inherit;padding:0 .05em}
+.score{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+.score b{font-size:2.6rem;line-height:1;color:var(--red);font-weight:700}
+.score .of{color:var(--muted)}
+.kicker{font-size:.85rem;font-weight:700;color:var(--muted);margin:1.3rem 0 .1rem}
+.err{border-top:1px dashed var(--line);padding:.7rem 0;display:grid;grid-template-columns:1fr auto;gap:.2rem .8rem}
+.err .fix{font-family:inherit;font-size:1.05rem}
+.err .why{grid-column:1/2;color:var(--muted);font-size:.92rem}
+.err .ty{font-size:.75rem;font-weight:700;color:var(--err);margin-left:.4rem;font-family:"Be Vietnam Pro",sans-serif}
+.err .btn{grid-row:1/3;grid-column:2;align-self:start}
+.voc{display:grid;grid-template-columns:1fr auto;gap:.15rem .8rem;padding:.7rem 0;border-top:1px dashed var(--line)}
+.voc .w{font-family:inherit;font-size:1.1rem}
+.voc .rd{color:var(--muted);font-size:.85rem;margin-left:.3rem}
+.voc .m,.voc .ex{grid-column:1/2;font-size:.93rem}
+.voc .ex{color:var(--muted);font-style:italic}
+.voc .btn{grid-row:1/4;grid-column:2;align-self:start}
+.feedback{margin:.6rem 0 0;max-width:62ch}
+
+/* Review card */
+.flash{background:var(--sheet);border-radius:14px;padding:2rem 1.4rem;text-align:center;margin-top:1rem;border:1px solid var(--line)}
+.flash .front{font-family:inherit;font-size:2rem;line-height:1.3;word-break:break-word}
+.flash .kind{font-size:.8rem;color:var(--red);font-weight:700;margin-bottom:.6rem}
+.flash .back{margin-top:1.3rem;padding-top:1.2rem;border-top:1px dashed var(--line)}
+.flash .back .ans{font-size:1.2rem;font-weight:600}
+.flash .back .ex{color:var(--muted);font-style:italic;font-family:inherit;margin-top:.4rem}
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:1rem}
+.grades button{border:1px solid var(--line);background:var(--sheet);border-radius:10px;padding:.6rem .3rem;cursor:pointer;font-weight:600}
+.grades button small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+.grades button:hover{border-color:var(--ink)}
+.grades button.again{color:var(--err)}
+.grades button.sug{border:2px solid var(--red);background:var(--soft)}
+.meter{height:6px;background:var(--soft);border-radius:9px;overflow:hidden;margin:.4rem 0}
+.meter i{display:block;height:100%;background:var(--red)}
+
+/* Lists */
+.list{margin-top:.6rem}
+.item{display:grid;grid-template-columns:1fr auto;gap:.1rem .8rem;padding:.75rem 0;border-bottom:1px solid var(--line)}
+.item .t{font-family:inherit;font-size:1.08rem}
+.item .s{color:var(--muted);font-size:.88rem;grid-column:1/2}
+.item .del{background:none;border:0;color:var(--muted);cursor:pointer;grid-row:1/3;grid-column:2;align-self:center;padding:.3rem}
+.item .del:hover{color:var(--red)}
+details.entry{border-bottom:1px solid var(--line);padding:.6rem 0}
+details.entry summary{cursor:pointer;list-style:none;display:flex;gap:.8rem;align-items:baseline}
+details.entry summary::-webkit-details-marker{display:none}
+details.entry summary .d{font-weight:600;white-space:nowrap}
+details.entry summary .sn{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+details.entry summary .sc{color:var(--red);font-weight:700}
+
+/* Progress */
+.big{display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap;margin:.6rem 0 1rem}
+.big .lv{font-family:inherit;font-size:4.5rem;line-height:1;font-weight:600}
+.big .lv small{display:block;font-family:"Be Vietnam Pro",sans-serif;font-size:.85rem;color:var(--muted);font-weight:500}
+.ladder{display:flex;gap:.3rem;flex:1;min-width:14rem}
+.ladder span{flex:1;text-align:center;padding:.35rem 0;border-radius:6px;background:var(--soft);font-size:.82rem;font-weight:600;color:var(--muted)}
+.ladder span.on{background:var(--ink);color:var(--paper)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:1rem 1.5rem;margin:1rem 0}
+.stats div b{display:block;font-size:1.6rem;font-family:inherit;font-weight:600}
+.stats div{color:var(--muted);font-size:.88rem}
+svg.spark{width:100%;height:110px;display:block;background:var(--sheet);border-radius:10px}
+
+.toast{position:fixed;left:50%;bottom:calc(6rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);opacity:0;
+  background:var(--ink);color:var(--paper);padding:.7rem 1.1rem;border-radius:10px;font-weight:600;transition:.25s;pointer-events:none;z-index:20;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){.toast,.dot{transition:none;animation:none}}
+.empty{color:var(--muted);padding:1.4rem 0}
+.exam{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin:.2rem 0 .6rem}
+.seg{display:flex;gap:.25rem;flex-wrap:wrap}
+.seg button{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:.3rem .7rem;cursor:pointer;font-weight:600;font-size:.88rem}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr));gap:.5rem;margin:.4rem 0 1rem}
+.topic{text-align:left;border:1px solid var(--line);background:var(--sheet);border-radius:10px;padding:.6rem .75rem;cursor:pointer;display:flex;flex-direction:column;gap:.1rem}
+.topic:hover{border-color:var(--ink)}
+.topic .tn{font-weight:600;line-height:1.3}
+.topic .te{font-size:.8rem;color:var(--muted)}
+.topic .tb{font-size:.75rem;font-weight:700;color:var(--ok)}
+.topic[aria-pressed="true"]{border:2px solid var(--red);padding:calc(.6rem - 1px) calc(.75rem - 1px)}
+.qcard{background:var(--sheet);border-radius:12px;padding:1rem 1.1rem;margin-top:.9rem;border:1px solid var(--line)}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem}
+.qhead .qn{font-weight:700;color:var(--red)}
+.pill{font-weight:700;font-size:.85rem;padding:.15rem .65rem;border-radius:99px;background:var(--soft)}
+.pill.good{color:var(--ok)}.pill.mid{color:#B7791F}.pill.bad{color:var(--red)}
+.qsrc{font-family:inherit;font-size:1.08rem;margin-bottom:.5rem}
+.qcard textarea{font-size:1rem;margin-top:.4rem}
+.qcard .kicker{margin-top:.8rem}
+.ltitle{font-family:inherit;font-size:1.35rem;font-weight:600;margin:.15rem 0 .4rem}
+.kw{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0 0}
+.kw button{border:1px dashed var(--muted);background:transparent;border-radius:8px;padding:.3rem .6rem;cursor:pointer;font-size:.9rem;text-align:left}
+.kw button:disabled{opacity:.5;cursor:default}
+.kw small{color:var(--muted)}
+.chat{margin-top:1.2rem;display:flex;flex-direction:column;gap:1rem}
+.msg{max-width:90%}
+.msg.ai{align-self:flex-start}.msg.me{align-self:flex-end}
+.who{font-size:.78rem;color:var(--muted);font-weight:600;margin:0 .3rem .2rem}
+.msg.me .who{text-align:right}
+.bub{padding:.65rem .9rem;border-radius:14px;font-family:inherit;font-size:1.06rem;line-height:1.55;word-break:break-word}
+.msg.ai .bub{background:var(--sheet);border:1px solid var(--line);border-top-left-radius:4px}
+.msg.me .bub{background:var(--ink);color:var(--paper);border-top-right-radius:4px}
+.say{background:none;border:0;cursor:pointer;font-size:1rem;padding:0 .1rem 0 .35rem;vertical-align:middle}
+.tr{font-size:.88rem;color:var(--muted);margin:.25rem .3rem 0}
+.tr summary{cursor:pointer;width:max-content}
+.fbk{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:.6rem .85rem;margin-top:.45rem;font-size:.95rem}
+.fbk .ruled{font-size:1rem}
+.fbk .kicker{margin-top:.5rem}
+.composer{position:sticky;bottom:0;background:var(--paper);padding:.8rem 0 .5rem;margin-top:1.2rem;border-top:1px solid var(--line);z-index:3}
+.composer textarea{font-size:1rem}
+.sugg{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.5rem}
+.sugg button{text-align:left;border:1px dashed var(--muted);background:var(--sheet);border-radius:10px;padding:.5rem .75rem;cursor:pointer;font-family:inherit}
+.sugg small{display:block;color:var(--muted);font-family:"Be Vietnam Pro",sans-serif}
+.brief p{margin:.3rem 0;max-width:62ch}
+#tkCaseBox .seg button{text-align:left}
+.hidec .voc:not(.show) .tg,.hidec .voc:not(.show) .ex,.hidec .voc:not(.show) .rd{filter:blur(6px);cursor:pointer;user-select:none}
+.hidec .voc{cursor:pointer}
+@media (max-width:640px){.composer{bottom:calc(3.2rem + env(safe-area-inset-bottom,0px))}.tab{font-size:.68rem;padding-left:0;padding-right:0}}
+.outline{display:flex;gap:.3rem;margin:.8rem 0 .2rem;flex-wrap:wrap}
+.outline span{flex:1;min-width:5.5rem;text-align:center;font-size:.78rem;font-weight:700;padding:.45rem .3rem;border-radius:8px;background:var(--soft);color:var(--muted);position:relative;overflow:hidden}
+.outline span i{position:absolute;left:0;top:0;bottom:0;background:var(--ok);opacity:.22}
+.outline span.on{outline:2px solid var(--red);color:var(--ink)}
+.gstats{display:flex;gap:1.4rem;flex-wrap:wrap;margin:.6rem 0 0;font-size:.88rem;color:var(--muted)}
+.gstats b{display:block;font-family:inherit;font-size:1.5rem;color:var(--ink);font-weight:600}
+.stars{color:var(--red);letter-spacing:.1em}
+.question{font-family:inherit;font-size:1.12rem;line-height:1.6;margin:.4rem 0}
+.hints{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0}
+.hintbox{background:var(--soft);border-radius:8px;padding:.5rem .7rem;margin:.35rem 0;font-size:.93rem}
+.hintbox b{font-family:inherit}
+.subj{background:linear-gradient(transparent 55%,var(--hl) 55%);padding:0 .1em}
+.qcard.current{border:2px solid var(--red)}
+.qcard .role{font-size:.78rem;color:var(--muted);font-weight:600;margin-left:.4rem}
+.gem{border:1px solid var(--line);background:var(--paper);border-radius:99px;padding:.25rem .7rem;cursor:pointer;font-size:.88rem;margin:.2rem .3rem 0 0}
+.gem:disabled{opacity:.55;cursor:default}
+.secname{font-family:inherit;font-weight:600;font-size:1.1rem;margin:1.6rem 0 0;color:var(--muted)}
+.essay p{font-family:inherit;font-size:1.05rem;line-height:1.75;margin:.5rem 0}
+details.setup>summary{cursor:pointer;font-weight:700;margin:.2rem 0 .6rem}
+.rc{background:var(--sheet);border-radius:18px;padding:1.1rem 1.25rem 1.2rem;margin-top:1rem;border:1px solid var(--line);box-shadow:0 2px 6px rgba(120,80,30,.06)}
+.rc-h{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.35rem}
+.rc-n{font-weight:700;color:var(--ink)}
+.rc-n .role{font-weight:500}
+.rc-s{font-weight:700;font-size:.92rem;padding:.25rem .8rem;border-radius:99px;white-space:nowrap}
+.rc-s.good{background:var(--okbg);color:var(--ok)}.rc-s.mid{background:var(--midbg);color:var(--mid)}.rc-s.bad{background:var(--errbg);color:var(--err)}
+.rc-src{color:var(--muted);line-height:1.6;margin-bottom:.55rem}
+.rc-me{line-height:1.75;font-size:1.02rem}
+.rc-me b,.box b{font-weight:700}
+.box{border-radius:14px;padding:.75rem 1rem;margin-top:.7rem;line-height:1.75;font-size:1.02rem}
+.box.ok{background:var(--okbg);color:var(--oktx)}
+.box.up{background:var(--upbg);color:var(--uptx)}
+.box.ref{background:var(--soft);color:var(--ink)}
+.chg{font-weight:700;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.box.up mark{background:none;color:inherit;font-weight:700}
+.box .say{color:inherit}
+.ncard{background:var(--sheet);border:1px solid var(--line);border-radius:16px;padding:1rem 1.1rem;margin-top:.8rem}
+.ncard .nt{font-weight:700;font-size:1.05rem;line-height:1.45;margin:.3rem 0}
+.ncard .nm{font-size:.82rem;color:var(--muted)}
+.ncard .np{color:var(--muted);margin:.35rem 0 .6rem;line-height:1.6}
+.ncat{display:inline-block;font-size:.75rem;font-weight:700;color:var(--red);background:var(--soft);border-radius:99px;padding:.1rem .6rem}
+.ncard .done{font-size:.8rem;font-weight:700;color:var(--ok);margin-left:.4rem}
+.ncard a{color:var(--red);font-size:.88rem}
+details.free{margin-top:2.2rem;border-top:1px solid var(--line);padding-top:1rem}
+details.free summary{cursor:pointer;font-weight:600}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">Sổ Ngữ<span>.</span></div>
+    <div class="pair">
+      <select id="src" aria-label="Ngôn ngữ gốc"></select>
+      <button class="swap" id="swap" aria-label="Đổi chiều dịch" title="Đổi chiều">⇄</button>
+      <select id="tgt" aria-label="Ngôn ngữ đang học"></select>
+    </div>
+    <label class="lvl">Trình độ <select id="level" aria-label="Trình độ"></select></label>
+  </div>
+  <nav class="tabs" aria-label="Chức năng">
+    <button class="tab" data-v="translate">Dịch</button>
+    <button class="tab" data-v="game">Game</button>
+    <button class="tab" data-v="talk">Giao tiếp</button>
+    <button class="tab" data-v="journal">Nhật ký</button>
+    <button class="tab" data-v="review">Ôn tập<span class="badge" id="dueBadge"></span></button>
+    <button class="tab" data-v="vocab">Từ vựng</button>
+    <button class="tab" data-v="progress">Tiến độ</button>
+  </nav>
+</header>
+
+<main>
+  <div class="warn" id="aiWarn" hidden>Các tính năng chấm bài và gợi ý cần chạy trong Claude. Phần ôn tập và sổ từ vựng vẫn dùng được bình thường.</div>
+
+  <!-- TRANSLATE -->
+  <section id="v-translate">
+    <div class="seg" id="trModes" role="group" aria-label="Kiểu bài dịch" style="margin-bottom:1rem"><button data-tm="topic" aria-pressed="true">Dịch theo chủ đề</button><button data-tm="news" aria-pressed="false">📰 Dịch bản tin</button></div>
+    <div id="trTopicPane">
+    <h2>Bài học theo chủ đề</h2>
+    <p class="lead" id="trLead"></p>
+    <div class="exam" id="examBar"></div>
+    <div class="topics" id="topicGrid"></div>
+    <div class="row"><label class="lvl">Số câu <select id="nSent"><option>5</option><option>8</option><option selected>10</option><option>15</option><option>20</option></select></label>
+      <button class="btn primary" id="startLesson" disabled>Chọn một chủ đề</button></div>
+    </div>
+    <div id="trNewsPane" hidden>
+      <h2>Dịch bản tin</h2>
+      <p class="lead">Tin mới về kinh tế, xu hướng, chính trị, thể thao, giáo dục và marketing, tóm tắt thành các câu ngắn để bạn dịch. Mỗi câu được chấm và sửa như bài học, rồi tự vào lịch ôn.</p>
+      <div class="exam"><div class="seg" id="newsCats" role="group" aria-label="Chuyên mục"></div></div>
+      <p class="note" id="newsMeta"></p>
+      <div id="newsList" class="list"></div>
+      <details class="free" style="margin-top:1.4rem"><summary>Dán tin của bạn để luyện dịch</summary>
+        <textarea id="newsPaste" rows="5" style="margin-top:.8rem" placeholder="Dán một đoạn tin tức (tối đa 20 câu)…"></textarea>
+        <div class="actions row"><button class="btn primary" id="newsPasteGo">Tạo bài dịch</button></div>
+      </details>
+    </div>
+    <div class="status" id="lsStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+    <div id="lesson"></div>
+    <details class="free"><summary>Luyện câu tự do</summary>
+    <div class="row" style="margin-top:.8rem">
+      <input type="text" id="topic" placeholder="Chủ đề (không bắt buộc): du lịch, công việc, gia đình…">
+      <button class="btn" id="newSent">Câu mới</button>
+    </div>
+    <label class="f" for="srcText" id="srcLabel">Câu gốc</label>
+    <textarea id="srcText" rows="2" placeholder="Bấm “Câu mới” để nhận câu hợp trình độ, hoặc tự gõ câu bạn muốn dịch."></textarea>
+    <p class="note" id="focusNote"></p>
+    <label class="f" for="trText" id="trLabel">Bản dịch của bạn</label>
+    <textarea id="trText" rows="3"></textarea>
+    <div class="actions row"><button class="btn primary" id="gradeBtn">Chấm và sửa</button></div>
+    <div class="status" id="trStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+    <div id="trResult"></div>
+    </details>
+  </section>
+
+  <!-- GAME -->
+  <section id="v-game" hidden>
+    <h2 id="gmTitle">Game viết Writing Task 2</h2>
+    <p class="lead" id="gmLead"></p>
+    <details class="setup" id="gmSetup" open><summary>Chọn đề mới</summary>
+      <div class="seg" id="gmModes" role="group" aria-label="Phần thi" style="margin-bottom:.4rem"></div>
+      <div id="gmTypeWrap"><div class="kicker">Dạng đề</div><div class="seg" id="gmTypes" role="group" aria-label="Dạng đề"></div></div>
+      <div class="kicker">Chủ đề</div><div class="topics" id="gmTopics"></div>
+      <div class="row"><label class="lvl">Độ dài <select id="gmLen"><option value="half">Nửa bài: mở bài + thân bài 1</option><option value="full" selected>Cả bài: 12 câu</option></select></label>
+        <button class="btn primary" id="gmNew" disabled>Chọn một chủ đề</button></div>
+    </details>
+    <div class="status" id="gmStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+    <div id="game"></div>
+    <div id="chest"></div>
+  </section>
+
+  <!-- TALK -->
+  <section id="v-talk" hidden>
+    <h2>Giao tiếp nơi làm việc</h2>
+    <p class="lead" id="tkLead"></p>
+    <div class="exam"><div class="seg" id="tkGroups" role="group" aria-label="Nhóm tình huống"></div></div>
+    <div class="topics" id="tkGrid"></div>
+    <div id="tkCaseBox"></div>
+    <div class="row"><button class="btn primary" id="tkPhr" disabled>Cụm từ theo tình huống</button><button class="btn" id="tkDrill" disabled>Dịch câu mẫu</button><button class="btn" id="tkStart" disabled>Hội thoại nhập vai</button></div>
+    <p class="note">Lộ trình gợi ý: học cụm từ, dịch câu mẫu có dùng các cụm đó, rồi vào hội thoại nhập vai để tự nói lại.</p>
+    <div class="status" id="tkStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+    <div id="phr"></div>
+    <div id="talk"></div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section id="v-journal" hidden>
+    <h2>Nhật ký</h2>
+    <p class="lead" id="jLead"></p>
+    <div class="row"><button class="btn" id="jPromptBtn">Gợi ý đề bài</button><span class="note" id="jPromptText"></span></div>
+    <label class="f" for="jText" id="jLabel">Hôm nay của bạn</label>
+    <textarea id="jText" rows="8"></textarea>
+    <div class="actions row"><button class="btn primary" id="jCheck">Sửa bài và lưu</button><span class="note" id="jCount"></span></div>
+    <div class="status" id="jStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+    <div id="jResult"></div>
+    <h3>Các trang đã viết</h3>
+    <div id="jList" class="list"></div>
+  </section>
+
+  <!-- REVIEW -->
+  <section id="v-review" hidden>
+    <h2>Ôn tập</h2>
+    <p class="lead">Thẻ hiện lại đúng lúc bạn sắp quên: nhớ càng tốt, lần ôn sau càng xa. Với câu đã học, bạn dịch lại câu cũ hoặc vận dụng cấu trúc vào một câu mới. Phím tắt: Space để lật, 1–4 để chấm.</p>
+    <div id="rv"></div>
+  </section>
+
+  <!-- VOCAB -->
+  <section id="v-vocab" hidden>
+    <h2>Sổ từ vựng</h2>
+    <p class="lead">Từ và lỗi bạn lưu từ bài dịch, nhật ký, hoặc tự thêm. Tất cả đều vào lịch ôn tập.</p>
+    <label class="f" for="vFront">Từ hoặc cụm từ</label>
+    <div class="row"><input type="text" id="vFront"><button class="btn" id="vFill">AI điền nghĩa</button></div>
+    <label class="f" for="vBack">Nghĩa</label>
+    <input type="text" id="vBack">
+    <label class="f" for="vEx">Ví dụ (không bắt buộc)</label>
+    <input type="text" id="vEx">
+    <div class="actions row"><button class="btn primary" id="vAdd">Thêm thẻ</button></div>
+    <div class="status" id="vStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+    <h3 id="vCountH">Thẻ của bạn</h3>
+    <input type="text" id="vSearch" placeholder="Tìm trong sổ…">
+    <div id="vList" class="list"></div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section id="v-progress" hidden>
+    <h2>Tiến độ</h2>
+    <div class="big"><div class="lv" id="pLevel">A1<small id="pLang"></small></div><div class="ladder" id="pLadder"></div></div>
+    <div class="note" id="pRule"></div>
+    <div class="meter" aria-hidden="true"><i id="pXp" style="width:0"></i></div>
+    <div class="note" id="pXpText"></div>
+    <div class="stats" id="pStats"></div>
+    <h3>Điểm các bài gần đây</h3>
+    <div id="pSpark"></div>
+    <h3>Cài đặt</h3>
+    <label class="f" for="explain">Ngôn ngữ dùng để giải thích lỗi</label>
+    <select id="explain"></select>
+    <p class="note" id="syncNote">Dữ liệu đang lưu trên trình duyệt này.</p>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const LANGS={vi:"Tiếng Việt",en:"English",zh:"中文",ja:"日本語",ko:"한국어",fr:"Français",de:"Deutsch",es:"Español"};
+const LNAME={vi:"Vietnamese",en:"English",zh:"Simplified Chinese",ja:"Japanese",ko:"Korean",fr:"French",de:"German",es:"Spanish"};
+const LV=["A1","A2","B1","B2","C1","C2"];
+const XP_NEED=150, AVG_NEED=80, WINDOW=8;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+
+/* ---------- State & storage ---------- */
+function defaultProfile(){return{src:"vi",tgt:"en",explain:"vi",langs:{},streak:{last:"",count:0},recent:[],stats:{tr:0,jr:0,rv:0}}}
+let S={profile:defaultProfile(),cards:{},journal:{}};
+const LSK="songu:v1";
+function saveLocal(){try{localStorage.setItem(LSK,JSON.stringify(S))}catch(e){}}
+function loadLocal(){try{const r=localStorage.getItem(LSK);if(r){const o=JSON.parse(r);S.profile=Object.assign(defaultProfile(),o.profile||{});S.cards=o.cards||{};S.journal=o.journal||{}}}catch(e){}}
+let col=null;const writing={},dirty={};
+function docVal(k){if(k==="profile")return S.profile;if(k.startsWith("c_"))return S.cards[k]||null;if(k.startsWith("j_"))return S.journal[k]||null;return null}
+function put(k){
+  saveLocal();if(!col)return;
+  if(writing[k]){dirty[k]=true;return}
+  writing[k]=true;const v=docVal(k);
+  const p=v?col.doc(k).set(JSON.parse(JSON.stringify(v))):col.doc(k).delete();
+  p.catch(()=>{}).finally(()=>{writing[k]=false;if(dirty[k]){dirty[k]=false;put(k)}});
+}
+async function initCloud(){
+  if(!window.claude)return;
+  try{
+    const [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+    if(!db||!user)return;
+    const id=await user.id();if(!id)return;
+    const c=db.collection("data/users/"+id);
+    const snap=await Promise.race([c.get(),new Promise((_,rej)=>setTimeout(()=>rej("timeout"),10000))]);
+    col=c;
+    if(snap.empty){put("profile");Object.keys(S.cards).forEach(put);Object.keys(S.journal).forEach(put)}
+    else{
+      const n={profile:defaultProfile(),cards:{},journal:{}};
+      snap.docs.forEach(d=>{const v=d.data();if(!v)return;const o=structuredClone(v);
+        if(d.id==="profile")n.profile=Object.assign(defaultProfile(),o);
+        else if(d.id.startsWith("c_"))n.cards[d.id]=o;
+        else if(d.id.startsWith("j_"))n.journal[d.id]=o;});
+      S=n;saveLocal();renderAll();
+    }
+    $("#syncNote").textContent="Dữ liệu được lưu vào tài khoản Claude của bạn, mở trên máy khác vẫn còn.";
+  }catch(e){}
+}
+function L(t){t=t||S.profile.tgt;if(!S.profile.langs[t])S.profile.langs[t]={level:"A1",xp:0,scores:[]};return S.profile.langs[t]}
+function nextLv(l){return LV[Math.min(LV.indexOf(l)+1,LV.length-1)]}
+function todayStr(d=new Date()){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function touchStreak(){const s=S.profile.streak,t=todayStr();if(s.last===t)return;const y=new Date();y.setDate(y.getDate()-1);s.count=(s.last===todayStr(y))?s.count+1:1;s.last=t}
+
+/* ---------- Level logic ---------- */
+function addScore(score){
+  const l=L();score=Math.max(0,Math.min(100,Math.round(score||0)));
+  l.scores.push(score);if(l.scores.length>40)l.scores=l.scores.slice(-40);
+  const gain=score>=50?Math.round(score/5):3;l.xp+=gain;
+  touchStreak();
+  const recent=l.scores.slice(-WINDOW),avg=recent.reduce((a,b)=>a+b,0)/recent.length;
+  let msg="+"+gain+" XP";
+  if(l.level!=="C2"&&l.xp>=XP_NEED&&recent.length>=WINDOW&&avg>=AVG_NEED){
+    l.level=nextLv(l.level);l.xp=0;msg="Lên trình độ "+l.level+". Bài tập từ giờ sẽ khó hơn.";
+  }else if(recent.length>=WINDOW&&avg<40&&l.level!=="A1"){
+    msg+=". Điểm gần đây khá thấp, bạn có thể hạ trình độ ở góc trên để luyện chắc hơn.";
+  }
+  put("profile");renderHeader();toast(msg);
+}
+
+/* ---------- SRS (SM-2) ---------- */
+function schedule(c,q){
+  const now=Date.now();let ef=c.ef??2.5,interval=c.interval??0,reps=c.reps??0;
+  if(q===0){return{ef:Math.max(1.3,ef-0.2),interval:0,reps:0,due:now+10*60e3}}
+  const qq=[0,3,4,5][q];
+  if(reps===0)interval=q===3?3:1;
+  else if(reps===1)interval=q===1?3:(q===3?8:6);
+  else interval=Math.max(interval+1,Math.round(interval*(q===1?1.2:ef*(q===3?1.3:1))));
+  reps++;ef=Math.max(1.3,ef+(0.1-(5-qq)*(0.08+(5-qq)*0.02)));
+  return{ef,interval,reps,due:now+interval*864e5};
+}
+function ivLabel(c,q){if(q===0)return"10 phút";const d=schedule(c,q).interval;return d<30?d+" ngày":d<365?Math.round(d/30)+" tháng":(d/365).toFixed(1)+" năm"}
+function cardsFor(t=S.profile.tgt){return Object.entries(S.cards).filter(([,c])=>c.lang===t)}
+function dueCards(){const n=Date.now();return cardsFor().filter(([,c])=>c.due<=n).sort((a,b)=>a[1].due-b[1].due)}
+function hasCard(front){const f=String(front).trim().toLowerCase();return cardsFor().some(([,c])=>String(c.front).trim().toLowerCase()===f)}
+function addCard(o){
+  if(!o.front||hasCard(o.front))return false;
+  const k="c_"+uid();
+  S.cards[k]={lang:S.profile.tgt,front:o.front,back:o.back||"",example:o.example||"",reading:o.reading||"",kind:o.kind||"vocab",ef:2.5,interval:0,reps:0,due:Date.now(),created:Date.now()};
+  put(k);renderBadge();return true;
+}
+
+/* ---------- AI ---------- */
+let sample=null,ctl=null;
+const ERR={not_granted:"Bạn chưa cho phép trang dùng Claude. Tải lại trang và chọn Cho phép để dùng tính năng AI.",
+  rate_limited:"Đang gửi quá nhiều yêu cầu. Đợi một lát rồi bấm lại.",cancelled:"Đã dừng.",
+  invalid_json:"Câu trả lời của AI bị lỗi định dạng. Bấm lại để thử lần nữa.",
+  prompt_too_large:"Bài quá dài. Hãy chia nhỏ rồi sửa từng phần.",session_expired:"Phiên đăng nhập đã hết hạn. Tải lại trang.",
+  unavailable:"Tính năng AI chỉ chạy khi mở trang này trong Claude.",refused:"AI từ chối nội dung này. Hãy thử câu khác."};
+async function ask(prompt,statusEl,msg,opts={}){
+  if(!sample)throw{code:"unavailable"};
+  ctl=new AbortController();
+  statusEl.hidden=false;statusEl.querySelector(".msg").textContent=msg;
+  try{return await sample.json(prompt,{signal:ctl.signal,modelTier:opts.tier||"default",cache:opts.cache??true})}
+  finally{statusEl.hidden=true}
+}
+document.addEventListener("click",e=>{if(e.target.matches("[data-stop]"))ctl?.abort()});
+function errMsg(e){return ERR[e?.code]||"AI chưa trả lời được. Thử lại sau ít phút."}
+const ln=k=>LNAME[k],nm=k=>LANGS[k];
+
+/* ---------- Diff ---------- */
+function tok(s,lang){s=String(s||"");if(lang==="zh"||lang==="ja")return Array.from(s);return s.split(/(\s+|[.,!?;:"“”()。，！？、])/).filter(t=>t!=="")}
+function diff(a,b,lang){
+  const A=tok(a,lang),B=tok(b,lang),n=A.length,m=B.length;
+  if(n*m>3e6)return[["eq",b]];
+  const dp=Array.from({length:n+1},()=>new Uint32Array(m+1));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)dp[i][j]=A[i]===B[j]?dp[i+1][j+1]+1:Math.max(dp[i+1][j],dp[i][j+1]);
+  const out=[];const push=(t,v)=>{const l=out[out.length-1];if(l&&l[0]===t)l[1]+=v;else out.push([t,v])};
+  let i=0,j=0;
+  while(i<n&&j<m){if(A[i]===B[j]){push("eq",A[i]);i++;j++}else if(dp[i+1][j]>=dp[i][j+1]){push("del",A[i]);i++}else{push("ins",B[j]);j++}}
+  while(i<n)push("del",A[i++]);while(j<m)push("ins",B[j++]);
+  return out;
+}
+function diffHTML(a,b,lang,upgrade){
+  return diff(a,b,lang).map(([t,v])=>{
+    if(t==="eq")return esc(v);
+    if(upgrade==="fix")return t==="ins"?(v.trim()?'<span class="chg">'+esc(v)+"</span>":esc(v)):"";
+    if(upgrade)return t==="ins"?(v.trim()?"<mark>"+esc(v)+"</mark>":esc(v)):"";
+    if(!v.trim())return t==="ins"?esc(v):"";
+    return t==="del"?"<del>"+esc(v)+"</del>":"<ins>"+esc(v)+"</ins>";
+  }).join("");
+}
+
+/* ---------- ClassMate-style result card ---------- */
+function errList(errs,attr,i){return(errs||[]).map((e,j)=>{const has=hasCard("Sửa: “"+e.wrong+"”");
+  return`<div class="err"><div class="fix"><del>${esc(e.wrong)}</del> → <ins>${esc(e.right)}</ins><span class="ty">${esc(e.type||"")}</span></div><div class="why">${esc(e.explain||"")}</div><button class="btn sm" data-${attr}="${i}-${j}" ${has?"disabled":""}>${has?"Đã lưu":"+ Ôn tập"}</button></div>`}).join("")}
+function rcard(n,role,src,said,r,lang,extra){
+  const sc=Math.round(r?.score??0);
+  return`<div class="rc"><div class="rc-h"><span class="rc-n">Câu ${n}${role?` <span class="role note">· ${esc(role)}</span>`:""}</span><span class="rc-s ${scoreCls(sc)}">${sc}/100</span></div>
+  <div class="rc-src">${esc(src)}</div>
+  <div class="rc-me"><b>Bài của bạn:</b> ${said?esc(said):'<span class="note">(bỏ trống)</span>'}</div>
+  ${r.corrected?`<div class="box ok"><b>${said?"Câu sửa":"Câu gợi ý"}:</b> ${said?diffHTML(said,r.corrected,lang,"fix"):esc(r.corrected)}</div>`:""}
+  ${r.upgraded?`<div class="box up"><b>Nâng cao:</b> ${diffHTML(r.corrected||said,r.upgraded,lang,true)}<button class="say" data-sayt="${esc(r.upgraded)}" aria-label="Nghe bản nâng cao">🔊</button></div>`:""}
+  ${r.reference&&r.reference!==r.corrected&&r.reference!==r.upgraded?`<div class="box ref"><b>Tham khảo:</b> ${esc(r.reference)}</div>`:""}
+  ${extra||""}</div>`;
+}
+
+/* ---------- Analysis rendering (shared) ---------- */
+function analysisHTML(d,userText,lang,ctx){
+  const lv=ctx.level,errs=Array.isArray(d.errors)?d.errors:[],voc=Array.isArray(d.vocab)?d.vocab:[];
+  let h=`<div class="sheet">
+    <div class="score"><b>${esc(Math.round(d.score??0))}</b><span class="of">/ 100 · trình độ ${esc(lv)}</span></div>
+    ${d.feedback?`<p class="feedback">${esc(d.feedback)}</p>`:""}
+    <div class="kicker">Bài đã sửa</div>
+    <div class="ruled">${diffHTML(userText,d.corrected||userText,lang,false)}</div>`;
+  if(ctx.reference&&d.reference)h+=`<div class="kicker">Bản dịch tham khảo</div><div class="ruled">${esc(d.reference)}</div>`;
+  if(d.upgraded)h+=`<div class="kicker">Bản nâng cấp lên ${esc(nextLv(lv))}</div><div class="ruled">${diffHTML(d.corrected||userText,d.upgraded,lang,true)}</div>`;
+  if(errs.length){
+    h+=`<div class="kicker">Lỗi cần nhớ (${errs.length})</div>`;
+    errs.forEach((e,i)=>{const f="Sửa: “"+e.wrong+"”";
+      h+=`<div class="err"><div class="fix"><del>${esc(e.wrong)}</del> → <ins>${esc(e.right)}</ins><span class="ty">${esc(e.type||"")}</span></div>
+      <div class="why">${esc(e.explain||"")}</div>
+      <button class="btn sm" data-adderr="${i}" ${hasCard(f)?"disabled":""}>${hasCard(f)?"Đã lưu":"+ Ôn tập"}</button></div>`});
+  }else h+=`<div class="kicker">Không có lỗi nào. Tốt lắm.</div>`;
+  if(voc.length){
+    h+=`<div class="kicker">Từ vựng nâng cấp</div>`;
+    voc.forEach((v,i)=>{h+=`<div class="voc"><div class="w">${v.basic?`<span class="rd" style="margin:0 .3rem 0 0">${esc(v.basic)} →</span>`:""}${esc(v.word)}${v.reading?`<span class="rd">${esc(v.reading)}</span>`:""}</div>
+      <div class="m">${esc(v.meaning||"")}</div>${v.example?`<div class="ex">${esc(v.example)}</div>`:""}
+      <button class="btn sm" data-addvoc="${i}" ${hasCard(v.word)?"disabled":""}>${hasCard(v.word)?"Đã lưu":"+ Thêm thẻ"}</button></div>`});
+  }
+  return h+"</div>";
+}
+function bindAnalysis(box,d){
+  box.onclick=e=>{
+    const b=e.target.closest("button");if(!b)return;
+    if(b.dataset.adderr!=null){const x=d.errors[+b.dataset.adderr];
+      if(addCard({front:"Sửa: “"+x.wrong+"”",back:x.right,example:x.explain,kind:"error"})){b.textContent="Đã lưu";b.disabled=true;toast("Đã thêm lỗi vào lịch ôn tập")}}
+    if(b.dataset.addvoc!=null){const v=d.vocab[+b.dataset.addvoc];
+      if(addCard({front:v.word,back:v.meaning,example:v.example,reading:v.reading})){b.textContent="Đã lưu";b.disabled=true;toast("Đã thêm “"+v.word+"” vào sổ")}}
+  };
+}
+
+/* ---------- Translate ---------- */
+async function newSentence(){
+  const p=S.profile;if(p.src===p.tgt)return toast("Chọn hai ngôn ngữ khác nhau");
+  const lv=L().level,topic=$("#topic").value.trim();
+  const prompt=`Create ONE sentence written in ${ln(p.src)} for a language learner to translate into ${ln(p.tgt)}.
+The learner's CEFR level in ${ln(p.tgt)} is ${lv}. Fit the difficulty of the ${ln(p.tgt)} translation to ${lv}: A1 = 5-8 words, present tense, everyday words; A2 = short sentences with past/future; B1 = two clauses, common connectors; B2 = complex clauses, less common vocabulary; C1 = nuanced, idiomatic, formal or abstract; C2 = sophisticated, idioms and rhetorical structures.
+Topic: ${topic||"any everyday or interesting topic; vary it"}.
+Do not repeat or closely resemble these recent sentences: ${JSON.stringify(p.recent.slice(-8))}. Variation seed: ${Math.random().toString(36).slice(2)}.
+Return JSON only, no markdown: {"sentence": string, "focus": string (the grammar point or vocabulary it practises, written in ${ln(p.explain)}, under 15 words)}`;
+  try{
+    const r=await ask(prompt,$("#trStatus"),"Đang soạn câu…",{tier:"quick",cache:false});
+    $("#srcText").value=r.sentence||"";$("#focusNote").textContent=r.focus?"Trọng tâm: "+r.focus:"";
+    $("#trText").value="";$("#trResult").innerHTML="";
+    p.recent.push(r.sentence);p.recent=p.recent.slice(-12);put("profile");$("#trText").focus();
+  }catch(e){toast(errMsg(e))}
+}
+async function grade(){
+  const p=S.profile,src=$("#srcText").value.trim(),tr=$("#trText").value.trim();
+  if(!src)return toast("Cần có câu gốc trước khi chấm");
+  if(!tr)return toast("Hãy viết bản dịch của bạn");
+  const lv=L().level;
+  const prompt=`You are a strict but encouraging ${ln(p.tgt)} teacher. The learner's CEFR level in ${ln(p.tgt)} is ${lv}.
+They translated this ${ln(p.src)} sentence into ${ln(p.tgt)}.
+SOURCE: ${src}
+LEARNER TRANSLATION: ${tr}
+Grade meaning accuracy, grammar, spelling, word choice and naturalness, judged against what is expected at ${lv}.
+Return JSON only, no markdown:
+{"score": integer 0-100,
+"corrected": the learner's translation with the MINIMUM edits needed to be correct and natural (keep their words when acceptable),
+"reference": a natural native-speaker translation,
+"errors": [{"wrong": exact fragment copied from the learner translation, "right": the corrected fragment, "type": 1-3 word category in ${ln(p.explain)} (e.g. grammar, vocabulary, spelling, meaning, naturalness), "explain": one short sentence in ${ln(p.explain)} explaining the rule}],
+"upgraded": the same meaning rewritten at level ${nextLv(lv)} with richer vocabulary and structures,
+"vocab": [2-4 items {"word": a useful ${ln(p.tgt)} word or phrase from the reference or upgraded version, "reading": pinyin for Chinese, romaji for Japanese, romanization for Korean, otherwise "", "meaning": meaning in ${ln(p.explain)}, "example": a short example sentence in ${ln(p.tgt)}}],
+"feedback": 1-2 sentences in ${ln(p.explain)}: what was good and the main thing to fix}
+If the translation is perfect, errors is [] and corrected equals the learner text.`;
+  $("#gradeBtn").disabled=true;
+  try{
+    const d=await ask(prompt,$("#trStatus"),"Đang chấm bài, thường mất 10–40 giây…");
+    const box=$("#trResult");box.innerHTML=analysisHTML(d,tr,p.tgt,{level:lv,reference:true});bindAnalysis(box,d);
+    p.stats.tr++;addScore(d.score);box.scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){toast(errMsg(e))}finally{$("#gradeBtn").disabled=false}
+}
+
+/* ---------- Topic lessons (IELTS / HSK) ---------- */
+const IELTS=[["edu","Giáo dục","Education"],["tech","Công nghệ","Technology"],["env","Môi trường","Environment"],["health","Sức khoẻ","Health"],
+["work","Công việc, nghề nghiệp","Work & Careers"],["family","Gia đình và trẻ em","Family & Children"],["travel","Du lịch","Travel & Tourism"],
+["media","Truyền thông, quảng cáo","Media & Advertising"],["crime","Tội phạm, pháp luật","Crime & Punishment"],["gov","Chính phủ, xã hội","Government & Society"],
+["global","Toàn cầu hoá","Globalisation"],["city","Đô thị hoá","Cities & Urbanisation"],["food","Ăn uống","Food & Diet"],["sport","Thể thao, giải trí","Sport & Leisure"],
+["art","Nghệ thuật, văn hoá","Arts & Culture"],["sci","Khoa học, vũ trụ","Science & Space"],["transport","Giao thông","Transport"],
+["housing","Nhà ở, kiến trúc","Housing & Architecture"],["money","Tiền bạc, tiêu dùng","Money & Consumerism"],["ageing","Dân số già","Ageing Population"]];
+const HSK={
+1:[["h1a","Chào hỏi, giới thiệu","问候与介绍"],["h1b","Gia đình","家庭"],["h1c","Số đếm, tuổi","数字与年龄"],["h1d","Ngày tháng, giờ giấc","日期和时间"],["h1e","Ăn uống","饮食"],["h1f","Mua sắm","购物"],["h1g","Thời tiết","天气"],["h1h","Trường học","学校"]],
+2:[["h2a","Sở thích","爱好"],["h2b","Sức khoẻ, đi khám","身体与看病"],["h2c","Đi lại, chỉ đường","交通与方向"],["h2d","Công việc hằng ngày","日常工作"],["h2e","Sinh nhật, ngày lễ","生日与节日"],["h2f","Thể thao","运动"],["h2g","Nhà ở","住房"],["h2h","Hẹn gặp bạn bè","约朋友"]],
+3:[["h3a","Du lịch","旅游"],["h3b","Thói quen sinh hoạt","生活习惯"],["h3c","Học tiếng Trung","学汉语"],["h3d","Bạn bè, quan hệ","朋友关系"],["h3e","Mua sắm online","网上购物"],["h3f","Môi trường","环境"],["h3g","Ẩm thực Trung Hoa","中国美食"],["h3h","Cảm xúc","情绪"]],
+4:[["h4a","Tình yêu, hôn nhân","爱情与婚姻"],["h4b","Nghề nghiệp, phỏng vấn","职业与面试"],["h4c","Nuôi dạy con","教育孩子"],["h4d","Công nghệ, internet","科技与网络"],["h4e","Lối sống lành mạnh","健康生活"],["h4f","Văn hoá, phong tục","文化与习俗"],["h4g","Tiền bạc, tiêu dùng","金钱与消费"],["h4h","Thành thị và nông thôn","城市与农村"]],
+5:[["h5a","Xã hội, khoảng cách thế hệ","社会与代沟"],["h5b","Kinh tế, kinh doanh","经济与商业"],["h5c","Khoa học, tự nhiên","科学与自然"],["h5d","Lịch sử, truyền thống","历史与传统"],["h5e","Tâm lý, thành công","心理与成功"],["h5f","Truyền thông","媒体"],["h5g","Bảo vệ môi trường","环保"],["h5h","Nghệ thuật","艺术"]],
+6:[["h6a","Triết lý sống","人生哲理"],["h6b","Toàn cầu hoá","全球化"],["h6c","Chính sách, xã hội","政策与社会"],["h6d","Văn học","文学"],["h6e","Đạo đức công nghệ","科技伦理"],["h6f","Thành ngữ, điển cố","成语典故"],["h6g","Quản lý, lãnh đạo","管理与领导"],["h6h","Phát triển bền vững","可持续发展"]]};
+const GEN=[["daily","Cuộc sống hằng ngày","Daily life"],["gfamily","Gia đình","Family"],["gfood","Ăn uống","Food"],["gtravel","Du lịch","Travel"],["gwork","Công việc","Work"],
+["ghealth","Sức khoẻ","Health"],["hobby","Sở thích","Hobbies"],["shop","Mua sắm","Shopping"],["gtech","Công nghệ","Technology"],["genv","Môi trường","Environment"],["culture","Văn hoá","Culture"],["gedu","Giáo dục","Education"]];
+const BAND={A1:"Band 4",A2:"Band 4.5–5",B1:"Band 5.5",B2:"Band 6–6.5",C1:"Band 7–7.5",C2:"Band 8+"};
+let hskView=null,selTopic=null;
+const hskOf=lv=>Math.min(6,LV.indexOf(lv)+1);
+const scoreCls=n=>n>=85?"good":n>=60?"mid":"bad";
+function renderTopics(){
+  const t=S.profile.tgt,lv=L().level,bar=$("#examBar");let items,hsk=null;
+  if(t==="zh"){if(!hskView)hskView=hskOf(lv);hsk=hskView;items=HSK[hskView];
+    bar.innerHTML=`<div class="seg" role="group" aria-label="Cấp HSK">${[1,2,3,4,5,6].map(n=>`<button data-hsk="${n}" aria-pressed="${n===hskView}">HSK ${n}</button>`).join("")}</div><span class="note">Từ vựng trong bài giới hạn trong HSK 1–${hskView}</span>`}
+  else if(t==="en"){items=IELTS;bar.innerHTML=`<b>Chủ đề IELTS</b><span class="note">mục tiêu ${BAND[lv]} theo trình độ ${lv}</span>`}
+  else{items=GEN;bar.innerHTML=`<b>Chủ đề thông dụng</b><span class="note">trình độ ${lv}</span>`}
+  const done=S.profile.done||{};
+  $("#topicGrid").innerHTML=items.map(([id,vi,o])=>{const b=done[t+":"+id];
+    return`<button class="topic" data-id="${id}" data-vi="${esc(vi)}" data-o="${esc(o)}" aria-pressed="${selTopic?.id===id}"><span class="tn">${esc(vi)}</span><span class="te">${esc(o)}</span>${b!=null?`<span class="tb">Tốt nhất ${b}/100</span>`:""}</button>`}).join("");
+  const st=$("#startLesson");st.disabled=!selTopic;st.textContent=selTopic?"Bắt đầu bài: "+selTopic.vi:"Chọn một chủ đề";
+}
+$("#examBar").addEventListener("click",e=>{const b=e.target.closest("[data-hsk]");if(!b)return;hskView=+b.dataset.hsk;selTopic=null;renderTopics()});
+$("#topicGrid").addEventListener("click",e=>{const b=e.target.closest(".topic");if(!b)return;
+  selTopic={id:b.dataset.id,vi:b.dataset.vi,orig:b.dataset.o,hsk:S.profile.tgt==="zh"?hskView:null};renderTopics()});
+function examContext(tgt,lv,hsk){
+  if(tgt==="zh")return`This is an HSK ${hsk} lesson: the Chinese translation of every sentence must be achievable using only vocabulary and grammar from HSK levels 1 to ${hsk}, with sentence length typical of HSK ${hsk} (HSK 1 very short and simple, HSK 6 long and literary).`;
+  if(tgt==="en")return`This is IELTS practice aimed at ${BAND[lv]} (CEFR ${lv}). Write the passage like a short IELTS Writing Task 2 body paragraph or a Speaking Part 3 answer: a clear position, reasons, an example and a consequence, using topic vocabulary examiners reward at that band.`;
+  return`Difficulty: CEFR ${lv}.`;
+}
+async function startLesson(topic){
+  const p=S.profile;topic=topic||selTopic;if(!topic)return;
+  if(p.src===p.tgt)return toast("Chọn hai ngôn ngữ khác nhau");
+  const n=+$("#nSent").value,lv=L().level,hsk=topic.hsk||hskOf(lv);
+  const sc=topic.scen;
+  const prompt=(sc?`Create a workplace phrase-translation lesson. Write ${n} realistic model sentences in ${ln(p.src)} that a ${sc.you} would actually say to a ${sc.ai} in this situation: "${sc.en}" (${sc.vi}).${topic.cs?` Specific case: ${topic.cs} (Vietnamese).`:" Pick one concrete, typical case of this situation."}${topic.use?` Each sentence should require one or more of these ${ln(p.tgt)} phrases in its translation: ${topic.use.join("; ")}.`:""} Setting: ${TALK[sc.g].ctx}. Roles are written in Vietnamese. Cover the typical moves of the situation in a natural order (opening, asking or giving details, explaining a problem, requesting or confirming, closing), with concrete specifics and correct technical terms. The learner will translate each sentence into ${ln(p.tgt)}.
+${p.tgt==="zh"?`Keep the Chinese achievable with vocabulary up to HSK ${hsk} plus the technical terms needed.`:`Difficulty: CEFR ${lv}.`}`:`Create a translation lesson. Write ${n} consecutive sentences in ${ln(p.src)} that together form ONE coherent short passage on the topic "${topic.orig}" (${topic.vi}). The learner will translate each sentence into ${ln(p.tgt)}.
+${examContext(p.tgt,lv,hsk)}`)+`
+Pick a fresh angle on the topic each time (variation seed ${Math.random().toString(36).slice(2)}).
+Return JSON only, no markdown:
+{"title": short title in ${ln(p.explain)},
+"sentences": [exactly ${n} items {"text": the sentence in ${ln(p.src)}, "focus": the grammar or vocabulary point it practises, in ${ln(p.explain)}, under 12 words}],
+"keywords": [5-8 items {"word": a key ${ln(p.tgt)} word or phrase needed for the translation, "reading": pinyin for Chinese, romaji for Japanese, romanization for Korean, otherwise "", "meaning": meaning in ${ln(p.explain)}}]}`;
+  $("#startLesson").disabled=true;
+  try{
+    const r=await ask(prompt,$("#lsStatus"),"Đang soạn bài theo chủ đề…",{cache:false});
+    const label=sc?"Câu mẫu giao tiếp, trình độ "+lv:p.tgt==="zh"?"HSK "+hsk:p.tgt==="en"?"IELTS "+BAND[lv]:"Trình độ "+lv;
+    p.lesson={src:p.src,tgt:p.tgt,topic,label,cefr:lv,hsk,title:r.title||topic.vi,sentences:(r.sentences||[]).slice(0,n),keywords:r.keywords||[],answers:[],result:null};
+    put("profile");renderLesson();$("#lesson").scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){toast(errMsg(e))}finally{renderTopics()}
+}
+$("#startLesson").onclick=()=>startLesson();
+function renderLesson(){
+  const box=$("#lesson"),p=S.profile,ls=p.lesson;
+  if(!ls||ls.tgt!==p.tgt||ls.src!==p.src){box.innerHTML="";return}
+  const R=ls.result;
+  let h=`<div class="sheet"><div class="note">${esc(ls.topic.vi)} · ${esc(ls.label)}</div><div class="ltitle">${esc(ls.title)}</div>`;
+  if(R)h+=`<div class="score"><b>${esc(Math.round(R.overall??0))}</b><span class="of">/ 100 cả bài</span></div>${R.feedback?`<p class="feedback">${esc(R.feedback)}</p>`:""}`;
+  if(ls.keywords?.length)h+=`<div class="kicker">Từ khoá của chủ đề, bấm để lưu vào sổ</div><div class="kw">${ls.keywords.map((k,i)=>`<button data-kw="${i}" ${hasCard(k.word)?"disabled":""}>${esc(k.word)}${k.reading?` <small>${esc(k.reading)}</small>`:""} <small>${esc(k.meaning)}</small></button>`).join("")}</div>`;
+  h+="</div>";
+  ls.sentences.forEach((s,i)=>{const it=R?.items?.[i],a=ls.answers[i]||"";
+    if(!R)h+=`<div class="qcard"><div class="qhead"><span class="qn">Câu ${i+1}</span></div><div class="qsrc">${esc(s.text)}</div>${s.focus?`<div class="note">Trọng tâm: ${esc(s.focus)}</div>`:""}<textarea rows="2" data-ans="${i}" aria-label="Bản dịch câu ${i+1}" placeholder="Dịch sang ${esc(nm(ls.tgt))}…">${esc(a)}</textarea></div>`;
+    else if(!it)h+=`<div class="rc"><div class="rc-h"><span class="rc-n">Câu ${i+1}</span></div><div class="rc-src">${esc(s.text)}</div><div class="note">Bạn bỏ trống câu này.</div></div>`;
+    else h+=rcard(i+1,"",s.text,a,it,ls.tgt,errList(it.errors,"le",i));
+  });
+  if(!R)h+=`<div class="actions row"><button class="btn primary" id="gradeLesson">Chấm cả bài</button><span class="note">Câu bỏ trống sẽ không được chấm.</span></div>`;
+  else{
+    if(R.vocab?.length){h+=`<div class="sheet"><div class="kicker" style="margin-top:0">Từ vựng nâng cấp cho chủ đề</div>`+R.vocab.map((v,i)=>`<div class="voc"><div class="w">${esc(v.word)}${v.reading?`<span class="rd">${esc(v.reading)}</span>`:""}</div><div class="m">${esc(v.meaning||"")}</div>${v.example?`<div class="ex">${esc(v.example)}</div>`:""}<button class="btn sm" data-lv="${i}" ${hasCard(v.word)?"disabled":""}>${hasCard(v.word)?"Đã lưu":"+ Thêm thẻ"}</button></div>`).join("")+`</div>`}
+    h+=`<div class="actions row"><button class="btn primary" id="againLesson">Bài mới cùng chủ đề</button><button class="btn" id="redoLesson">Làm lại bài này</button></div>`;
+  }
+  box.innerHTML=h;
+}
+$("#lesson").addEventListener("input",e=>{const t=e.target;if(t.dataset.ans==null)return;S.profile.lesson.answers[+t.dataset.ans]=t.value;saveLocal()});
+$("#lesson").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const ls=S.profile.lesson;if(b.dataset.sayt!=null)return say(b.dataset.sayt,ls.tgt);
+  const mark=()=>{b.disabled=true;if(!b.dataset.kw)b.textContent="Đã lưu"};
+  if(b.dataset.kw!=null){const k=ls.keywords[+b.dataset.kw];if(addCard({front:k.word,back:k.meaning,reading:k.reading})){mark();toast("Đã thêm “"+k.word+"”")}}
+  else if(b.dataset.le){const [i,j]=b.dataset.le.split("-").map(Number),x=ls.result.items[i].errors[j];
+    if(addCard({front:"Sửa: “"+x.wrong+"”",back:x.right,example:x.explain,kind:"error"})){mark();toast("Đã thêm lỗi vào lịch ôn tập")}}
+  else if(b.dataset.lv!=null){const v=ls.result.vocab[+b.dataset.lv];if(addCard({front:v.word,back:v.meaning,example:v.example,reading:v.reading})){mark();toast("Đã thêm “"+v.word+"”")}}
+  else if(b.id==="gradeLesson")gradeLesson();
+  else if(b.id==="againLesson")startLesson(ls.topic);
+  else if(b.id==="redoLesson"){ls.result=null;ls.answers=[];put("profile");renderLesson()}
+});
+async function gradeLesson(){
+  const p=S.profile,ls=p.lesson;
+  const items=ls.sentences.map((s,i)=>({n:i+1,source:s.text,translation:(ls.answers[i]||"").trim()})).filter(x=>x.translation);
+  if(!items.length)return toast("Hãy dịch ít nhất một câu");
+  const nxt=p.tgt==="en"?"IELTS "+BAND[nextLv(ls.cefr)]:p.tgt==="zh"?"HSK "+Math.min(6,ls.hsk+1):"CEFR "+nextLv(ls.cefr);
+  const mk=part=>`You are a strict but encouraging ${ln(p.tgt)} teacher. Lesson: "${ls.topic.orig}", ${ls.label}; learner CEFR level ${ls.cefr}.
+${ls.topic.scen?"This is workplace communication practice: also judge politeness, register and professional tone, and make the upgraded version sound like an experienced professional in this job.":ls.topic.news?"This is news translation practice: check that names, numbers, dates and facts are rendered accurately, keep a neutral journalistic register, and make the upgraded version read like a professional news wire.":examContext(p.tgt,ls.cefr,ls.hsk)}
+The learner translated these ${ln(p.src)} sentences into ${ln(p.tgt)}. Grade each for meaning accuracy, grammar, spelling, word choice and naturalness, judged against ${ls.label}.
+ITEMS: ${JSON.stringify(part)}
+Return JSON only, no markdown:
+{"feedback": 1-2 sentences in ${ln(p.explain)}: the main strength and the main habit to fix,
+"items": [one per item, same order, {"n": item number, "score": integer 0-100, "corrected": the learner translation with the MINIMUM edits needed (keep their wording when acceptable), "reference": a natural native-speaker translation, "upgraded": the same meaning at ${nxt} level with richer vocabulary and structures, "errors": [{"wrong": exact fragment from the learner translation, "right": corrected fragment, "type": 1-3 word category in ${ln(p.explain)}, "explain": one short sentence in ${ln(p.explain)}}]}],
+"vocab": [2-4 useful topic words or phrases from the reference or upgraded versions, each {"word", "reading" (pinyin/romaji/romanization or ""), "meaning" in ${ln(p.explain)}, "example": short ${ln(p.tgt)} sentence}]}
+If a translation is perfect, its errors is [] and corrected equals it.`;
+  const CH=6,chunks=[];for(let i=0;i<items.length;i+=CH)chunks.push(items.slice(i,i+CH));
+  const btn=$("#gradeLesson");btn.disabled=true;
+  const byIdx=[];let fb="",voc=[];
+  try{
+    for(const part of chunks){
+      const d=await ask(mk(part),$("#lsStatus"),chunks.length>1?`Đang chấm câu ${part[0].n}–${part[part.length-1].n} / ${ls.sentences.length}…`:`Đang chấm ${items.length} câu, thường mất 20–60 giây…`);
+      (d.items||[]).forEach((it,k)=>{const i=(it.n??part[k]?.n)-1;if(i>=0&&i<ls.sentences.length)byIdx[i]=it});
+      if(!fb)fb=d.feedback||"";voc=voc.concat(d.vocab||[]);
+    }
+    const sc=byIdx.filter(Boolean).map(x=>x.score||0),overall=sc.length?Math.round(sc.reduce((a,b)=>a+b,0)/sc.length):0;
+    const seen=new Set();voc=voc.filter(v=>v?.word&&!seen.has(v.word.toLowerCase())&&seen.add(v.word.toLowerCase())).slice(0,10);
+    ls.result={overall,feedback:fb,items:byIdx,vocab:voc};
+    ls.sentences.forEach((s,i)=>{if(byIdx[i])addSentCard(s.text,byIdx[i],ls.answers[i],ls.topic.vi)});renderBadge();
+    p.done=p.done||{};const key=p.tgt+":"+ls.topic.id;p.done[key]=Math.max(p.done[key]??0,overall);if(ls.topic.news)renderNews();
+    p.stats.tr+=items.length;addScore(overall);renderLesson();renderTopics();
+    $("#lesson").scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){
+    if(byIdx.length){ls.result={overall:0,feedback:"Chấm được một phần, bấm Làm lại để chấm lại cả bài.",items:byIdx,vocab:voc};renderLesson()}
+    toast(errMsg(e));const b2=$("#gradeLesson");if(b2)b2.disabled=false;
+  }
+}
+function addSentCard(src,r,ans,topic){
+  if(S.profile.autoSent===false||!src||!r)return;
+  const best=r.upgraded||r.corrected||ans;if(!best)return;
+  if(cardsFor().some(([,c])=>c.kind==="sent"&&c.front===src))return;
+  const k="c_"+uid();
+  S.cards[k]={lang:S.profile.tgt,front:src,back:best,example:r.corrected||ans||"",reading:"",kind:"sent",topic:topic||"",ef:2.5,interval:0,reps:0,due:Date.now()+20*36e5,created:Date.now()};
+  put(k);
+}
+
+/* ---------- News translation ---------- */
+const NCATS=[["all","Tất cả"],["kinhte","Kinh tế"],["xuhuong","Xu hướng"],["chinhtri","Chính trị"],["thethao","Thể thao"],["giaoduc","Giáo dục"],["marketing","Marketing"]];
+let NEWS=[],newsCat="all",newsState="loading";
+function trMode(m){$("#trTopicPane").hidden=m!=="topic";$("#trNewsPane").hidden=m!=="news";
+  document.querySelectorAll("#trModes button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.tm===m)));if(m==="news")renderNews()}
+$("#trModes").addEventListener("click",e=>{const b=e.target.closest("[data-tm]");if(b)trMode(b.dataset.tm)});
+function agoText(t){const m=Math.round((Date.now()-new Date(t).getTime())/60000);if(isNaN(m))return"";return m<1?"vừa xong":m<60?m+" phút trước":m<1440?Math.round(m/60)+" giờ trước":Math.round(m/1440)+" ngày trước"}
+function newsLang(){const s=S.profile.src;return s==="en"?"en":"vi"}
+function renderNews(){
+  const counts={};NEWS.forEach(n=>counts[n.cat]=(counts[n.cat]||0)+1);
+  $("#newsCats").innerHTML=NCATS.map(([k,l])=>`<button data-nc="${k}" aria-pressed="${k===newsCat}">${l}${k==="all"?` (${NEWS.length})`:counts[k]?` (${counts[k]})`:""}</button>`).join("");
+  const last=NEWS.map(n=>n.fetched||"").sort().pop();
+  $("#newsMeta").textContent=last?`Cập nhật lúc ${new Date(last).toLocaleString("vi-VN",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"})} · Tin được tóm tắt lại từ các báo để luyện dịch, bấm “Đọc bài gốc” để xem đầy đủ.`:"";
+  const box=$("#newsList");
+  if(newsState==="loading"&&!NEWS.length){box.innerHTML=`<p class="empty">Đang tải bản tin…</p>`;return}
+  if(newsState==="off"){box.innerHTML=`<p class="empty">Bản tin chỉ tải được khi mở trang này trong Claude. Bạn vẫn có thể dán tin của mình ở bên dưới.</p>`;return}
+  const L2=newsLang(),done=S.profile.done||{};
+  const list=NEWS.filter(n=>newsCat==="all"||n.cat===newsCat).sort((a,b)=>String(b.published||"").localeCompare(String(a.published||"")));
+  if(!list.length){box.innerHTML=`<p class="empty">Chưa có tin trong chuyên mục này.</p>`;return}
+  box.innerHTML=list.map(n=>{const t=L2==="en"?(n.title_en||n.title_vi):(n.title_vi||n.title_en),sents=(L2==="en"?n.sum_en:n.sum_vi)||[],b=done[S.profile.tgt+":news:"+n.id];
+    return`<div class="ncard"><span class="ncat">${esc((NCATS.find(c=>c[0]===n.cat)||[,""])[1])}</span>${b!=null?`<span class="done">✓ Đã dịch · ${b}/100</span>`:""}
+    <div class="nt">${esc(t)}</div><div class="nm">${esc(n.source||"")}${n.published?" · "+esc(agoText(n.published)):""}</div>
+    <div class="np">${esc(sents[0]||"")}</div>
+    <div class="row"><button class="btn primary sm" data-news="${esc(n.id)}">Dịch bản tin (${sents.length} câu)</button>${n.url?`<a href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">Đọc bài gốc ↗</a>`:""}</div></div>`}).join("");
+}
+$("#newsCats").addEventListener("click",e=>{const b=e.target.closest("[data-nc]");if(b){newsCat=b.dataset.nc;renderNews()}});
+function newsLesson(id,title,titleEn,sents,cat){
+  const p=S.profile,lv=L().level;
+  if(!sents.length)return toast("Bản tin này chưa có câu để dịch");
+  p.lesson={src:p.src,tgt:p.tgt,topic:{id:"news:"+id,vi:title,orig:titleEn||title,news:true,cat},label:"Bản tin · "+((NCATS.find(c=>c[0]===cat)||[,"Tin của bạn"])[1]),cefr:lv,hsk:hskOf(lv),
+    title,sentences:sents.slice(0,20).map(t=>({text:t,focus:""})),keywords:[],answers:[],result:null};
+  put("profile");renderLesson();$("#lesson").scrollIntoView({behavior:"smooth",block:"start"});
+}
+$("#newsList").addEventListener("click",e=>{const b=e.target.closest("[data-news]");if(!b)return;const n=NEWS.find(x=>x.id===b.dataset.news);if(!n)return;
+  const en=newsLang()==="en";newsLesson(n.id,en?(n.title_en||n.title_vi):(n.title_vi||n.title_en),n.title_en,(en?n.sum_en:n.sum_vi)||[],n.cat)});
+$("#newsPasteGo").onclick=()=>{const t=$("#newsPaste").value.trim();if(t.length<20)return toast("Hãy dán một đoạn tin dài hơn");
+  const sents=t.replace(/\s+/g," ").split(/(?<=[.!?。！？])\s+/).map(x=>x.trim()).filter(x=>x.length>3);
+  newsLesson("paste"+Date.now(),"Tin bạn dán","News passage",sents,"paste");$("#newsPaste").value=""};
+async function initNews(){
+  if(!window.claude){newsState="off";return renderNews()}
+  try{const db=await claude.use("db");if(!db){newsState="off";return renderNews()}
+    const timer=setTimeout(()=>{if(newsState==="loading"){newsState="ready";renderNews()}},10000);
+    db.collection("news").onSnapshot(snap=>{clearTimeout(timer);NEWS=snap.docs.map(d=>Object.assign({id:d.id},structuredClone(d.data()||{})));newsState="ready";renderNews()},
+      ()=>{clearTimeout(timer);newsState=NEWS.length?"ready":"off";renderNews()});
+  }catch(e){newsState="off";renderNews()}
+}
+
+/* ---------- Writing game (WT2 style) ---------- */
+const GTYPES=[["opinion","Đồng ý / không đồng ý","Opinion essay (to what extent do you agree or disagree)"],["discuss","Thảo luận hai quan điểm","Discuss both views and give your own opinion"],
+["advdis","Lợi ích và bất lợi","Advantages and disadvantages"],["probsol","Nguyên nhân và giải pháp","Causes/problems and solutions"],["twopart","Câu hỏi hai phần","Two-part question"]];
+let gmType="opinion",gmTopic=null,gmBusy=false,gmMode="wt2";
+const GMODES=[["wt2","Writing Task 2"],["sp3","Speaking Part 3"]];
+const isEn=()=>S.profile.tgt==="en";
+function gmTopicList(){const t=S.profile.tgt;return t==="en"?IELTS:t==="zh"?HSK[hskOf(L().level)]:GEN}
+function renderGameSetup(){
+  const p=S.profile,lv=L().level,done=p.done||{};
+  const sp=gmMode==="sp3";
+  $("#gmModes").innerHTML=GMODES.map(([k,l])=>`<button data-gm="${k}" aria-pressed="${k===gmMode}">${isEn()?l:(k==="sp3"?"Trả lời câu hỏi thảo luận":"Viết bài luận")}</button>`).join("");
+  $("#gmTypeWrap").hidden=sp;
+  {const keep=$("#gmLen").value||"full";$("#gmLen").innerHTML=sp?`<option value="half">3 câu hỏi · 12 câu</option><option value="full">4 câu hỏi · 16 câu</option><option value="long">6 câu hỏi · 24 câu</option>`:`<option value="half">Nửa bài · 6 câu</option><option value="full">Cả bài · 12 câu</option><option value="long">Bài dài, triển khai kỹ · 18 câu</option>`;$("#gmLen").value=keep}
+  if(sp){$("#gmTitle").textContent=isEn()?"Game Speaking Part 3":"Game trả lời câu hỏi thảo luận";
+    $("#gmLead").textContent=`Mỗi câu hỏi thảo luận${isEn()?" kiểu IELTS Speaking Part 3":""} có một câu trả lời mẫu chia thành 4 câu ${nm(p.src)}: trả lời thẳng, giải thích, ví dụ, chốt ý. Bạn dịch từng câu sang ${nm(p.tgt)}, bấm Enter để chấm, xem Câu sửa và Nâng cao.${isEn()?" Mục tiêu "+BAND[lv]+".":""}`}
+  else{
+  $("#gmTitle").textContent=isEn()?"Game viết Writing Task 2":"Game viết bài luận";
+  $("#gmLead").textContent=`Bài luận được chia thành từng câu ${nm(p.src)} theo bố cục mở bài, thân bài, kết bài. Bạn viết từng câu bằng ${nm(p.tgt)}, bấm Enter để chấm ngay, xem câu sửa và bản nâng cao, rồi bỏ cụm hay vào rương báu vật.${isEn()?" Mục tiêu "+BAND[lv]+".":""}`;}
+  $("#gmTypes").innerHTML=GTYPES.map(([k,vi])=>`<button data-gt="${k}" aria-pressed="${k===gmType}">${esc(vi)}</button>`).join("");
+  $("#gmTopics").innerHTML=gmTopicList().map(([id,vi,o])=>{const b=done[(sp?"sp3:":"wt:")+p.tgt+":"+id];
+    return`<button class="topic" data-id="${id}" data-vi="${esc(vi)}" data-o="${esc(o)}" aria-pressed="${gmTopic?.id===id}"><span class="tn">${esc(vi)}</span><span class="te">${esc(o)}</span>${b!=null?`<span class="tb">Tốt nhất ${b}/100</span>`:""}</button>`}).join("");
+  const b=$("#gmNew");b.disabled=!gmTopic||gmBusy;b.textContent=gmTopic?"Tạo đề: "+gmTopic.vi:"Chọn một chủ đề";
+}
+$("#gmModes").addEventListener("click",e=>{const b=e.target.closest("[data-gm]");if(b){gmMode=b.dataset.gm;renderGameSetup()}});
+$("#gmTypes").addEventListener("click",e=>{const b=e.target.closest("[data-gt]");if(b){gmType=b.dataset.gt;renderGameSetup()}});
+$("#gmTopics").addEventListener("click",e=>{const b=e.target.closest(".topic");if(b){gmTopic={id:b.dataset.id,vi:b.dataset.vi,orig:b.dataset.o};renderGameSetup()}});
+$("#gmNew").onclick=newGame;
+async function newGame(){
+  const p=S.profile;if(!gmTopic)return;if(p.src===p.tgt)return toast("Chọn hai ngôn ngữ khác nhau");
+  const lv=L().level,T=ln(p.tgt),X=ln(p.explain),SL=ln(p.src),ty=GTYPES.find(x=>x[0]===gmType),lenV=$("#gmLen").value,half=lenV==="half",long=lenV==="long";
+  const target=isEn()?`IELTS ${BAND[lv]}`:p.tgt==="zh"?`HSK ${hskOf(lv)}`:`CEFR ${lv}`;
+  const sp=gmMode==="sp3",nq=half?3:long?6:4;
+  const prompt=sp?`Design a sentence-by-sentence speaking-practice game for a learner of ${T} at ${target} (CEFR ${lv}).
+1) Write ${nq} ${isEn()?"IELTS Speaking Part 3":"discussion"} questions in ${T} on the topic "${gmTopic.orig}", moving from concrete to more abstract (compare, evaluate, predict). Make them fresh (variation seed ${Math.random().toString(36).slice(2)}).
+2) For each question, plan a strong spoken answer of exactly 4 sentences written in ${SL}: a direct answer, a reason or explanation, a concrete example, and a conclusion or contrast. The learner will translate each ${SL} sentence into ${T}, so every sentence must be natural ${SL}, sound like spoken discussion (not an essay), and be expressible at ${target}.
+For each sentence give scaffolding: a suggested ${T} subject or opening phrase (vary them, include natural spoken openers), a useful structure pattern, and 2-4 key ${T} words.
+Return JSON only, no markdown:
+{"question": a short title in ${T} for this set of questions, "question_tr": its translation in ${X}, "plan": one tip in ${X} on how to answer Part 3 questions well,
+"sections": [${nq} items {"name": the question in ${T}, "name_tr": the question translated into ${X}, "sentences": [4 items {"text": the sentence in ${SL}, "role": its function in ${X}, 2-5 words, "subject": suggested ${T} opening words, "structure": a ${T} pattern with a very short note in ${X}, "keywords": [{"word": ${T}, "meaning": in ${X}}]}]}]}`
+  :`Design a sentence-by-sentence essay writing game for a learner of ${T} at ${target} (CEFR ${lv}).
+1) Write a realistic ${isEn()?"IELTS Writing Task 2 question":"exam-style essay question"} in ${T} on the topic "${gmTopic.orig}". Essay type: ${ty[2]}. Make it fresh (variation seed ${Math.random().toString(36).slice(2)}).
+2) Plan a clear, well-organised model answer and write it as sentences in ${SL}. The learner will translate each ${SL} sentence into ${T}, one at a time, so every sentence must be natural ${SL} and expressible at ${target}.
+Sections and sentence counts:
+${long?`- Introduction: 3 sentences (hook or background; paraphrase the question; state position and outline).
+- Body 1: 6 sentences (topic sentence, explanation, further explanation, specific example, consequence, link back).
+- Body 2: 6 sentences (same pattern).
+- Conclusion: 3 sentences (restate position; summarise both main ideas; final thought or recommendation).`:`- Introduction: 2 sentences (paraphrase the question; state position or outline).
+- Body 1: 4 sentences (topic sentence, explanation, specific example, result or link back).${half?"":`
+- Body 2: 4 sentences (same pattern).
+- Conclusion: 2 sentences (restate position; final thought).`}`}
+For each sentence give scaffolding like a teacher would: a suggested ${T} subject to start with (rotate subjects so the essay is not repetitive), a useful structure pattern, and 2-4 key ${T} words.
+Return JSON only, no markdown:
+{"question": the question in ${T}, "question_tr": its translation in ${X}, "plan": the idea outline in ${X}, 1-2 sentences,
+"sections": [{"name": section name in ${X}, "sentences": [{"text": the sentence in ${SL}, "role": its function in ${X}, 2-5 words, "subject": suggested ${T} subject or opening words, "structure": a ${T} pattern with a very short note in ${X}, "keywords": [{"word": ${T} word or collocation, "meaning": in ${X}}]}]}]}`;
+  gmBusy=true;renderGameSetup();
+  try{
+    const r=await ask(prompt,$("#gmStatus"),"Đang ra đề và lập dàn ý…",{cache:false});
+    const items=[];(r.sections||[]).forEach(sec=>(sec.sentences||[]).forEach(x=>items.push(Object.assign({sec:sec.name},x))));
+    if(!items.length)throw{code:"invalid_json"};
+    p.game={id:gmTopic.id,mode:sp?"sp3":"wt2",secTr:(r.sections||[]).map(x=>x.name_tr||""),topic:gmTopic,type:sp?(isEn()?"Speaking Part 3":"Câu hỏi thảo luận"):ty[1],src:p.src,tgt:p.tgt,level:lv,target,question:r.question||"",question_tr:r.question_tr||"",plan:r.plan||"",
+      sections:(r.sections||[]).map(s=>s.name),items,attempts:[{ans:[],res:[],hints:[],date:Date.now()}],view:0};
+    put("profile");$("#gmSetup").open=false;renderGame();$("#game").scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){toast(errMsg(e))}finally{gmBusy=false;renderGameSetup()}
+}
+function gmCur(a,g){return a.res.length<g.items.length?a.res.length:-1}
+function gmCombo(a){let c=0;for(let i=a.res.length-1;i>=0&&(a.res[i]?.score??0)>=80;i--)c++;return c}
+function gmPoints(a){return a.res.reduce((s,r,i)=>s+Math.max(0,Math.round(r?.score??0)-5*((a.hints[i]||[]).length)),0)}
+function gmStars(avg){return avg>=85?"★★★":avg>=70?"★★☆":avg>=50?"★☆☆":"☆☆☆"}
+function renderGame(){
+  const box=$("#game"),p=S.profile,g=p.game;
+  if(!g||g.tgt!==p.tgt||g.src!==p.src){box.innerHTML="";$("#gmSetup").open=true;renderChest();return}
+  const a=g.attempts[g.view],latest=g.view===g.attempts.length-1,cur=latest?gmCur(a,g):-1,n=g.items.length;
+  const done=a.res.length,avg=done?Math.round(a.res.reduce((s,r)=>s+(r?.score??0),0)/done):0;
+  let h=`<div class="sheet"><div class="note">${esc(g.topic.vi)} · ${esc(g.type)} · ${esc(g.target)}</div>
+  <div class="question">${esc(g.question)}</div>${g.question_tr?`<details class="tr"><summary>Xem nghĩa đề</summary>${esc(g.question_tr)}</details>`:""}${g.plan?`<details class="tr"><summary>Dàn ý</summary>${esc(g.plan)}</details>`:""}`;
+  h+=`<div class="outline" aria-label="Bố cục bài">${g.sections.map(sn=>{const idx=g.items.map((x,i)=>x.sec===sn?i:-1).filter(i=>i>=0),d=idx.filter(i=>i<done).length;
+    return`<span class="${cur>=0&&g.items[cur]?.sec===sn?"on":""}"><i style="width:${idx.length?d/idx.length*100:0}%"></i>${esc(g.mode==="sp3"?"Câu hỏi "+(g.sections.indexOf(sn)+1):sn)} ${d}/${idx.length}</span>`}).join("")}</div>`;
+  h+=`<div class="gstats"><div><b>${gmPoints(a)}</b>điểm</div><div><b>${done}/${n}</b>câu</div><div><b>${gmCombo(a)}</b>chuỗi ≥80</div><div><b class="stars">${done?gmStars(avg):"☆☆☆"}</b>trung bình ${avg}</div></div>`;
+  if(g.attempts.length>1)h+=`<div class="seg" style="margin-top:.8rem">${g.attempts.map((x,i)=>`<button data-gv="${i}" aria-pressed="${i===g.view}">Lần ${i+1}${x.res.length===n?" · "+gmPoints(x)+"đ":""}</button>`).join("")}</div>`;
+  h+=`</div>`;
+  let lastSec=null;
+  const upto=cur>=0?cur:done-1;
+  for(let i=0;i<=upto&&i<n;i++){
+    const it=g.items[i],r=a.res[i],used=a.hints[i]||[];
+    if(it.sec!==lastSec){const si=g.sections.indexOf(it.sec);h+=`<div class="secname">${g.mode==="sp3"?"Câu hỏi "+(si+1)+": ":""}${esc(it.sec)}</div>${g.secTr?.[si]?`<div class="note">${esc(g.secTr[si])}</div>`:""}`;lastSec=it.sec}
+    if(r){
+      const said=a.ans[i]||"";
+      let ex=r.tip?`<p class="note" style="margin:.7rem 0 0">💡 ${esc(r.tip)}</p>`:"";
+      ex+=errList(r.errors,"ge",i);
+      if(r.gems?.length)ex+=`<div class="kicker">Bỏ vào rương báu vật</div><div>${r.gems.map((x,j)=>`<button class="gem" data-gem="${i}-${j}" ${hasCard(x.word)?"disabled":""}>💎 ${esc(x.word)} <small class="note">${esc(x.meaning||"")}</small></button>`).join("")}</div>`;
+      if(latest&&i===done-1&&!gmBusy)ex+=`<div class="actions"><button class="linkbtn" data-redo="${i}">Viết lại câu này</button></div>`;
+      h+=rcard(i+1,it.role,it.text,said,r,g.tgt,ex);
+    }else if(i===cur){
+      h+=`<div class="qcard current"><div class="qhead"><span><span class="qn">Câu ${i+1}</span><span class="role">${esc(it.role||"")}</span></span><span class="note">${i+1}/${n}</span></div><div class="qsrc">${esc(it.text)}</div>
+        <div class="hints">${[["subject","Chủ ngữ"],["structure","Cấu trúc"],["keywords","Từ khoá"]].map(([k,l])=>used.includes(k)?"":`<button class="btn sm" data-hint="${k}">${l} −5</button>`).join("")}</div>`;
+      if(used.includes("subject"))h+=`<div class="hintbox">Bắt đầu bằng: <b class="subj">${esc(it.subject||"")}</b></div>`;
+      if(used.includes("structure"))h+=`<div class="hintbox">Cấu trúc: <b>${esc(it.structure||"")}</b></div>`;
+      if(used.includes("keywords"))h+=`<div class="hintbox">${(it.keywords||[]).map(k=>`<b>${esc(k.word)}</b> <span class="note">${esc(k.meaning||"")}</span>`).join(" · ")}</div>`;
+      h+=`<textarea id="gmInput" rows="2" aria-label="Câu ${i+1} bằng ${esc(nm(g.tgt))}" placeholder="Viết câu bằng ${esc(nm(g.tgt))} rồi bấm Enter…">${esc(a.draft||"")}</textarea>
+        <div class="status" id="gmStatus2" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+        <div class="actions row"><button class="btn primary" id="gmCheck">Chấm câu</button><button class="btn" id="gmSkip">Bỏ qua, xem câu gợi ý</button></div></div>`;
+    }
+  }
+  if(done===n){
+    const essay=k=>g.sections.map(sn=>`<p>${g.mode==="sp3"?`<b>${esc(sn)}</b><br>`:""}${g.items.map((x,i)=>x.sec===sn?esc(k(i)):"").filter(Boolean).join(" ")}</p>`).join("");
+    const words=g.items.map((x,i)=>a.res[i]?.upgraded||"").join(" ").trim().split(/\s+/).length;
+    h+=`<div class="sheet"><div class="score"><b>${avg}</b><span class="of">/ 100 · <span class="stars">${gmStars(avg)}</span> · ${gmPoints(a)} điểm</span></div>
+      <div class="kicker">Bài của bạn sau khi sửa</div><div class="essay">${essay(i=>a.res[i]?.corrected||a.ans[i]||"")}</div>
+      <div class="kicker">${g.mode==="sp3"?"Câu trả lời nâng cao":"Bài nâng cao"}${isEn()?" ("+words+" từ)":""}</div><div class="essay">${essay(i=>a.res[i]?.upgraded||"")}</div>
+      <div class="actions row"><button class="btn primary" id="gmRetry">Viết lại đề này (lần ${g.attempts.length+1})</button><button class="btn" id="gmOther">Đề khác</button></div>
+      <p class="note">Mẹo: lần sau hãy viết bằng vốn tự có, hạn chế dùng gợi ý, rồi so sánh với lần trước ở các tab Lần 1, Lần 2…</p></div>`;
+  }
+  box.innerHTML=h;
+  const inp=$("#gmInput");
+  if(inp){inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();gmSubmit(false)}});
+    inp.addEventListener("input",()=>{a.draft=inp.value;saveLocal()})}
+  renderChest();
+}
+$("#game").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const g=S.profile.game,a=g.attempts[g.view];
+  if(b.dataset.sayt!=null)say(b.dataset.sayt,g.tgt);
+  else if(b.dataset.gv!=null){g.view=+b.dataset.gv;renderGame()}
+  else if(b.dataset.hint){const i=gmCur(a,g);a.hints[i]=(a.hints[i]||[]).concat(b.dataset.hint);put("profile");renderGame();$("#gmInput")?.focus()}
+  else if(b.dataset.gem){const [i,j]=b.dataset.gem.split("-").map(Number),x=a.res[i].gems[j];
+    if(addCard({front:x.word,back:x.meaning,example:a.res[i].upgraded,kind:"gem"})){b.disabled=true;toast("💎 Đã bỏ vào rương báu vật");renderChest()}}
+  else if(b.dataset.ge){const [i,j]=b.dataset.ge.split("-").map(Number),x=a.res[i].errors[j];
+    if(addCard({front:"Sửa: “"+x.wrong+"”",back:x.right,example:x.explain,kind:"error"})){b.disabled=true;b.textContent="Đã lưu";toast("Đã thêm lỗi vào lịch ôn tập")}}
+  else if(b.dataset.redo!=null){const i=+b.dataset.redo;a.draft=a.ans[i]||"";a.ans.length=i;a.res.length=i;put("profile");renderGame();$("#gmInput")?.focus()}
+  else if(b.id==="gmCheck")gmSubmit(false);
+  else if(b.id==="gmSkip")gmSubmit(true);
+  else if(b.id==="gmRetry"){g.attempts.push({ans:[],res:[],hints:[],date:Date.now()});g.view=g.attempts.length-1;put("profile");renderGame();$("#gmInput")?.scrollIntoView({behavior:"smooth",block:"center"})}
+  else if(b.id==="gmOther"){$("#gmSetup").open=true;$("#gmSetup").scrollIntoView({behavior:"smooth"})}
+});
+async function gmSubmit(skip){
+  const p=S.profile,g=p.game,a=g.attempts[g.view],i=gmCur(a,g);if(i<0||gmBusy)return;
+  const ans=skip?"":($("#gmInput").value||"").trim();if(!skip&&!ans)return toast("Hãy viết câu của bạn trước");
+  const it=g.items[i],T=ln(g.tgt),X=ln(p.explain),SL=ln(g.src);
+  const prev=g.items.slice(0,i).map((x,k)=>a.res[k]?.corrected||a.ans[k]||"").filter(Boolean).join(" ");
+  const prompt=`You are ${isEn()?"an experienced IELTS Writing examiner and ":""}a ${T} writing coach. Learner level: ${g.target} (CEFR ${g.level}).
+${g.mode==="sp3"?`This is a spoken answer to a${isEn()?"n IELTS Speaking Part 3":""} discussion question: "${it.sec}". Judge it as natural, well-developed spoken ${T} (clear and fluent, not overly formal); the upgraded version should sound like a high-scoring speaker.`:`Essay question: ${g.question}`}
+Section: ${it.sec}. This sentence's role: ${it.role}.
+The learner must express this ${SL} sentence in ${T}: "${it.text}"
+The learner's essay so far (for coherence): ${prev||"(this is the first sentence)"}
+Learner's sentence: "${ans||"(no answer: the learner skipped)"}"
+Judge meaning, grammar, vocabulary, cohesion with the previous sentences and academic register${isEn()?" (as in IELTS Task Response, Coherence and Cohesion, Lexical Resource, Grammatical Range and Accuracy)":""}.
+Return JSON only, no markdown:
+{"score": integer 0-100 (0 if skipped),
+"corrected": the learner's sentence with the MINIMUM edits needed (if skipped, a good model sentence at ${g.target}),
+"upgraded": a stronger version of the same idea that fits the essay${isEn()?`, at about ${BAND[nextLv(g.level)]}`:`, one level higher`},
+"errors": [{"wrong": exact fragment from the learner's sentence, "right": fix, "type": 1-3 word category in ${X}, "explain": one short sentence in ${X}}],
+"gems": [1-3 valuable expressions from "upgraded" worth memorising (collocations, linking phrases or structures, not single basic words), each {"word": in ${T}, "meaning": in ${X}}],
+"tip": one short encouraging sentence in ${X} with the key takeaway}
+If the sentence is already perfect, errors is [] and corrected equals it.`;
+  gmBusy=true;const bc=$("#gmCheck"),bs=$("#gmSkip");if(bc)bc.disabled=true;if(bs)bs.disabled=true;
+  try{
+    const r=await ask(prompt,$("#gmStatus2"),skip?"Đang soạn câu gợi ý…":"Đang chấm câu…");
+    a.ans[i]=ans;a.res[i]={score:skip?0:Math.round(r.score??0),corrected:r.corrected||"",upgraded:r.upgraded||"",errors:skip?[]:(r.errors||[]),gems:r.gems||[],tip:r.tip||""};a.draft="";
+    addSentCard(it.text,a.res[i],ans,g.topic.vi+" · "+g.type);renderBadge();
+    const sc=a.res[i].score,combo=gmCombo(a);
+    if(!skip)toast(sc>=90?(combo>=3?`Tuyệt vời! Chuỗi ${combo} câu liên tiếp`:"Xuất sắc!"):sc>=80?"Tốt lắm!":sc>=60?"Khá ổn, xem bản sửa nhé":"Cùng xem lại lỗi nhé");
+    if(a.res.length===g.items.length){
+      const avg=Math.round(a.res.reduce((s,x)=>s+(x?.score??0),0)/a.res.length);
+      p.done=p.done||{};const key=(g.mode==="sp3"?"sp3:":"wt:")+g.tgt+":"+g.id;p.done[key]=Math.max(p.done[key]??0,avg);
+      p.stats.games=(p.stats.games||0)+1;p.stats.tr+=g.items.length;addScore(avg);renderGameSetup();
+    }else put("profile");
+  }catch(e){toast(errMsg(e))}
+  finally{gmBusy=false;renderGame();const nx=$("#gmInput")||$("#game .sheet:last-child");if(nx){nx.scrollIntoView({behavior:"smooth",block:"center"});if(nx.focus&&nx.tagName==="TEXTAREA")nx.focus({preventScroll:true})}}
+}
+function renderChest(){
+  const gems=cardsFor().filter(([,c])=>c.kind==="gem").sort((a,b)=>b[1].created-a[1].created);
+  $("#chest").innerHTML=`<h3>💎 Rương báu vật (${gems.length})</h3>${gems.length?`<div class="kw">${gems.slice(0,40).map(([,c])=>`<button disabled style="opacity:1;cursor:default">${esc(c.front)} <small>${esc(c.back)}</small></button>`).join("")}</div><p class="note">Các cụm trong rương được ôn lặp lại ở tab Ôn tập. <a href="#review">Ôn ngay</a></p>`:`<p class="empty">Rương còn trống. Sau mỗi câu, bấm vào các cụm 💎 trong bản nâng cao để cất vào đây.</p>`}`;
+}
+
+/* ---------- Workplace talk ---------- */
+const TALK={
+office:{name:"Công sở",ctx:"the office of a company that manufactures, installs and maintains elevators",items:[
+["of-meet","Họp giao ban đầu tuần","Weekly team meeting","nhân viên báo cáo tiến độ công việc","trưởng phòng"],
+["of-report","Báo cáo sự cố với sếp","Reporting a problem to your manager","nhân viên phát hiện sự cố","quản lý trực tiếp"],
+["of-phone","Gọi điện cho khách hàng","Phone call with a client","nhân viên kinh doanh","khách hàng đang cân nhắc lắp thang máy"],
+["of-email","Nhắc việc qua chat, email","Work chat and email follow-up","nhân viên cần đồng nghiệp gửi tài liệu","đồng nghiệp phòng khác"],
+["of-leave","Xin nghỉ phép","Asking for leave","nhân viên xin nghỉ","trưởng phòng"],
+["of-new","Làm quen đồng nghiệp mới","Meeting a new colleague","nhân viên lâu năm","đồng nghiệp mới vào"],
+["of-nego","Thương lượng với nhà cung cấp","Negotiating with a supplier","nhân viên mua hàng","đại diện nhà cung cấp"],
+["of-interview","Phỏng vấn xin việc","Job interview","ứng viên","nhà tuyển dụng của công ty thang máy"]]},
+elev:{name:"Thang máy: sản xuất, lắp đặt, bảo trì",ctx:"the elevator industry: factory production, on-site installation, commissioning and maintenance",items:[
+["el-survey","Khảo sát hố thang tại công trình","Hoistway site survey","kỹ sư khảo sát của công ty thang máy","chỉ huy trưởng công trình xây dựng"],
+["el-safety","Họp an toàn đầu ca","Toolbox safety talk","tổ trưởng lắp đặt","công nhân mới trong tổ"],
+["el-install","Lắp ray dẫn hướng và đối trọng","Installing guide rails and counterweight","kỹ thuật viên lắp đặt","giám sát kỹ thuật"],
+["el-qc","Kiểm tra chất lượng tại xưởng","Factory quality inspection","nhân viên QC","quản đốc xưởng sản xuất"],
+["el-parts","Đặt linh kiện với hãng nước ngoài","Ordering parts from an overseas supplier","kỹ sư vật tư","đại diện hãng máy kéo, tủ điều khiển"],
+["el-commission","Chạy thử và nghiệm thu","Commissioning and acceptance test","kỹ sư chạy thử","cán bộ kiểm định"],
+["el-handover","Bàn giao, hướng dẫn sử dụng","Handover to the building owner","kỹ sư bàn giao","đại diện chủ đầu tư"],
+["el-trap","Nhận cuộc gọi báo kẹt thang","Emergency call: passengers trapped","nhân viên trực cứu hộ","bảo vệ toà nhà đang hoảng hốt"],
+["el-maint","Báo cáo bảo trì định kỳ","Routine maintenance report","kỹ thuật viên bảo trì","trưởng ban quản lý toà nhà"],
+["el-delay","Giải thích chậm tiến độ","Explaining a schedule delay","quản lý dự án lắp đặt","chủ đầu tư đang không hài lòng"]]}};
+let tkGroup="office",tkSel=null,tkCase=-1,phrHide=false;
+const SUBS={
+"of-meet":["Báo cáo tiến độ dự án đúng hạn","Báo việc bị trễ và đề xuất giải pháp","Xin thêm nhân lực, thiết bị","Phân công việc trong tuần"],
+"of-report":["Thang vừa bàn giao bị lỗi cửa tầng","Khách phàn nàn về đội lắp đặt","Hàng nhập về thiếu linh kiện","Bản vẽ bị sai, cần sửa gấp"],
+"of-phone":["Khách hỏi báo giá thang gia đình","Khách hỏi thời gian lắp đặt","Hẹn lịch khảo sát công trình","Khách so sánh với hãng khác"],
+"of-email":["Nhắc gửi bản vẽ hố thang","Xin xác nhận đơn hàng","Báo đổi lịch họp","Gửi biên bản nghiệm thu"],
+"of-leave":["Nghỉ ốm đột xuất","Nghỉ phép năm","Xin về sớm vì việc gia đình","Bàn giao việc trước khi nghỉ"],
+"of-new":["Giới thiệu bản thân, vị trí","Giới thiệu quy trình làm việc","Hướng dẫn đồ bảo hộ, nội quy","Rủ đi ăn trưa"],
+"of-nego":["Đàm phán giảm giá ray dẫn hướng","Đàm phán thời gian giao hàng","Yêu cầu bảo hành dài hơn","Khiếu nại lô hàng lỗi"],
+"of-interview":["Kể kinh nghiệm lắp đặt","Trả lời câu hỏi về an toàn","Thoả thuận lương, chế độ","Hỏi lại nhà tuyển dụng"],
+"el-survey":["Đo kích thước hố thang, hố pit","Hố pit bị ngập nước","Thiếu móc treo, dầm phòng máy","Tường hố thang lệch, không thẳng"],
+"el-safety":["Kiểm tra dây an toàn, mũ, giày","Rào chắn cửa tầng đang mở","Quy trình khoá điện, treo biển (LOTO)","Làm việc trên nóc cabin"],
+"el-install":["Dựng ray và căn chỉnh thẳng","Lắp đối trọng, cân bằng tải","Lắp cửa tầng, căn khe hở","Kéo cáp, lắp máy kéo"],
+"el-qc":["Kiểm tra mối hàn khung cabin","Ray sai dung sai kích thước","Kiểm tra sơn, bề mặt inox","Lập biên bản hàng không đạt"],
+"el-parts":["Đặt máy kéo không hộp số","Hỏi thông số tủ điều khiển, biến tần","Thúc tiến độ giao hàng","Báo linh kiện nhận về bị hỏng"],
+"el-commission":["Chạy thử không tải và có tải","Thử phanh, bộ khống chế vượt tốc","Kiểm tra độ bằng tầng","Xử lý hạng mục không đạt"],
+"el-handover":["Hướng dẫn sử dụng, nút gọi cứu hộ","Giải thích chế độ bảo hành","Bàn giao hồ sơ, chìa khoá","Tư vấn hợp đồng bảo trì"],
+"el-trap":["Hỏi số người, tầng, tình trạng","Trấn an người bị kẹt","Dặn chờ, không tự cạy cửa","Báo thời gian đội cứu hộ tới"],
+"el-maint":["Báo kết quả kiểm tra tháng","Đề xuất thay cáp tải, má phanh","Giải thích tiếng ồn, rung lắc","Báo giá sửa chữa phát sinh"],
+"el-delay":["Chậm do hàng nhập khẩu về trễ","Chậm do mặt bằng chưa bàn giao","Chậm do thiếu điện thi công","Đề xuất tiến độ mới, cam kết"]};
+const curCase=()=>tkSel&&tkCase>=0?SUBS[tkSel][tkCase]:null;
+const VOICE={vi:"vi-VN",en:"en-US",zh:"zh-CN",ja:"ja-JP",ko:"ko-KR",fr:"fr-FR",de:"de-DE",es:"es-ES"};
+function say(t,lang){if(!("speechSynthesis" in window))return toast("Trình duyệt này không đọc được thành tiếng");
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=VOICE[lang]||"en-US";u.rate=.92;speechSynthesis.speak(u)}
+function findScen(id){for(const g in TALK){const it=TALK[g].items.find(x=>x[0]===id);if(it)return{g,id:it[0],vi:it[1],en:it[2],you:it[3],ai:it[4]}}return null}
+function renderTalkPicker(){
+  const p=S.profile,done=p.done||{};
+  $("#tkLead").textContent=`Nhập vai hội thoại bằng ${nm(p.tgt)} với AI trong tình huống thật ở công ty và công trường thang máy. Mỗi câu bạn nói được sửa ngay, kèm cách nói chuyên nghiệp hơn.`;
+  $("#tkGroups").innerHTML=Object.entries(TALK).map(([k,g])=>`<button data-g="${k}" aria-pressed="${k===tkGroup}">${esc(g.name)}</button>`).join("");
+  $("#tkGrid").innerHTML=TALK[tkGroup].items.map(([id,vi,en,you])=>{const b=done["talk:"+p.tgt+":"+id];
+    return`<button class="topic" data-id="${id}" aria-pressed="${tkSel===id}"><span class="tn">${esc(vi)}</span><span class="te">Bạn là ${esc(you)}</span>${b!=null?`<span class="tb">Tốt nhất ${b}/100</span>`:""}</button>`}).join("");
+  const st=$("#tkStart"),sc=tkSel&&findScen(tkSel);st.disabled=!sc;$("#tkDrill").disabled=!sc;$("#tkPhr").disabled=!sc;
+  $("#tkCaseBox").innerHTML=sc?`<div class="kicker">Chọn tình huống cụ thể</div><div class="seg" style="margin:.4rem 0 1rem">${["Ngẫu nhiên",...SUBS[sc.id]].map((c,i)=>`<button data-case="${i-1}" aria-pressed="${tkCase===i-1}">${esc(c)}</button>`).join("")}</div>`:"";$("#tkDrill").textContent=sc?"Dịch câu mẫu: "+sc.vi:"Chọn một tình huống";
+}
+$("#tkGroups").addEventListener("click",e=>{const b=e.target.closest("[data-g]");if(!b)return;tkGroup=b.dataset.g;renderTalkPicker()});
+$("#tkGrid").addEventListener("click",e=>{const b=e.target.closest(".topic");if(!b)return;if(tkSel!==b.dataset.id)tkCase=-1;tkSel=b.dataset.id;renderTalkPicker()});
+$("#tkCaseBox").addEventListener("click",e=>{const b=e.target.closest("[data-case]");if(!b)return;tkCase=+b.dataset.case;renderTalkPicker()});
+$("#tkStart").onclick=()=>startTalk(tkSel);
+$("#tkDrill").onclick=()=>drillScen(tkSel,curCase());
+$("#tkPhr").onclick=()=>phraseBank(tkSel,curCase());
+function drillScen(id,cs,use){const sc=findScen(id);if(!sc)return;location.hash="translate";startLesson({id:"drill:"+id,vi:sc.vi+(cs?": "+cs:""),orig:sc.en,hsk:null,scen:sc,cs:cs||null,use:use||null})}
+async function phraseBank(id,cs,more){
+  const p=S.profile,sc=findScen(id);if(!sc)return;if(p.src===p.tgt)return toast("Chọn hai ngôn ngữ khác nhau");
+  const lv=L().level,T=ln(p.tgt),X=ln(p.explain),SL=ln(p.src),old=more&&p.phr?p.phr.groups.flatMap(g=>(g.items||[]).map(x=>x.tgt)):[];
+  const prompt=`Build a phrase bank for a CEFR ${lv} learner of ${T} who works in ${TALK[sc.g].ctx}.
+Situation: "${sc.en}" (${sc.vi}). ${cs?`Specific case: ${cs} (Vietnamese).`:"Choose one concrete, typical case of this situation."}
+The learner is ${sc.you}, talking to ${sc.ai} (roles in Vietnamese).
+Give 12-16 ready-to-use chunks that people really say in this exact case: collocations, fixed expressions, sentence starters and technical phrases (use correct elevator-industry terminology when relevant), grouped by communicative function (for example: opening, asking for details, reporting a problem, explaining, requesting, confirming, closing). Keep them useful at ${lv} while still sounding professional.${old.length?` Do NOT repeat any of these: ${old.join("; ")}.`:""}
+Return JSON only, no markdown:
+{"case": the specific case in ${X}, one short sentence,
+"groups": [{"name": function name in ${X}, "items": [{"src": the phrase in ${SL}, "tgt": the phrase in ${T}, "reading": pinyin for Chinese, romaji for Japanese, romanization for Korean, otherwise "", "example": one full natural ${T} sentence using it in this case, "example_tr": its translation in ${SL}}]}]}`;
+  $("#tkPhr").disabled=true;
+  try{
+    const r=await ask(prompt,$("#tkStatus"),more?"Đang tìm thêm cụm từ…":"Đang soạn cụm từ cho tình huống…",{cache:false});
+    if(more&&p.phr)p.phr.groups=p.phr.groups.concat(r.groups||[]);
+    else p.phr={id,cs:cs||null,src:p.src,tgt:p.tgt,level:lv,caseName:r.case||cs||"",groups:r.groups||[]};
+    put("profile");renderPhr();if(!more)$("#phr").scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){toast(errMsg(e))}finally{renderTalkPicker()}
+}
+function renderPhr(){
+  const box=$("#phr"),p=S.profile,ph=p.phr;
+  if(!ph||ph.tgt!==p.tgt||ph.src!==p.src){box.innerHTML="";return}
+  const sc=findScen(ph.id);
+  let h=`<div class="sheet ${phrHide?"hidec":""}"><div class="note">Cụm từ theo tình huống · ${esc(ph.level)}</div><div class="ltitle">${esc(sc?.vi||"")}</div>${ph.caseName?`<p class="feedback" style="margin-top:0">Tình huống cụ thể: ${esc(ph.caseName)}</p>`:""}
+  <label class="note" style="display:flex;gap:.45rem;align-items:center;margin:.7rem 0 0"><input type="checkbox" id="phrHide" ${phrHide?"checked":""}> Che cụm ${esc(nm(ph.tgt))} để tự nhớ, chạm vào từng dòng để xem</label>`;
+  ph.groups.forEach((g,gi)=>{h+=`<div class="kicker">${esc(g.name)}</div>`;
+    (g.items||[]).forEach((x,ii)=>{const has=hasCard(x.tgt);
+      h+=`<div class="voc"><div class="m"><b>${esc(x.src)}</b></div><div class="w"><span class="tg">${esc(x.tgt)}</span>${x.reading?`<span class="rd">${esc(x.reading)}</span>`:""}<button class="say" data-sayt="${esc(x.tgt)}" aria-label="Nghe">🔊</button></div>${x.example?`<div class="ex">${esc(x.example)}${x.example_tr?` (${esc(x.example_tr)})`:""}</div>`:""}<button class="btn sm" data-ph="${gi}-${ii}" ${has?"disabled":""}>${has?"Đã lưu":"+ Thêm thẻ"}</button></div>`})});
+  h+=`<div class="actions row"><button class="btn primary" data-phall="1">Lưu tất cả vào sổ</button><button class="btn" data-phdrill="1">Dịch câu mẫu có các cụm này</button><button class="btn" data-phmore="1">Thêm cụm từ khác</button></div></div>`;
+  box.innerHTML=h;
+}
+$("#phr").addEventListener("change",e=>{if(e.target.id==="phrHide"){phrHide=e.target.checked;renderPhr()}});
+$("#phr").addEventListener("click",e=>{
+  const ph=S.profile.phr,b=e.target.closest("button"),v=e.target.closest(".voc");
+  if(!b){if(v&&phrHide)v.classList.toggle("show");return}
+  const card=x=>addCard({front:x.tgt,back:x.src,reading:x.reading,example:x.example});
+  if(b.dataset.sayt!=null)say(b.dataset.sayt,ph.tgt);
+  else if(b.dataset.ph){const [g,i]=b.dataset.ph.split("-").map(Number);if(card(ph.groups[g].items[i])){b.disabled=true;b.textContent="Đã lưu";toast("Đã thêm vào sổ")}}
+  else if(b.dataset.phall){let c=0;ph.groups.forEach(g=>(g.items||[]).forEach(x=>{if(card(x))c++}));toast(c?`Đã lưu ${c} cụm từ vào sổ`:"Các cụm này đã có trong sổ");renderPhr()}
+  else if(b.dataset.phdrill)drillScen(ph.id,ph.caseName||ph.cs,ph.groups.flatMap(g=>(g.items||[]).map(x=>x.tgt)).slice(0,14));
+  else if(b.dataset.phmore)phraseBank(ph.id,ph.cs,true);
+});
+async function startTalk(id,cs=curCase()){
+  const p=S.profile,sc=findScen(id);if(!sc)return;if(p.src===p.tgt)return toast("Chọn hai ngôn ngữ khác nhau");
+  const lv=L().level,X=ln(p.explain),T=ln(p.tgt);
+  const prompt=`Set up a workplace role-play for a CEFR ${lv} learner of ${T}.
+Scenario: "${sc.en}" (Vietnamese: ${sc.vi}). Setting: ${TALK[sc.g].ctx}.${cs?`\nSpecific case to role-play: ${cs} (Vietnamese).`:"\nPick one specific, concrete case typical of this scenario."}
+The learner plays: ${sc.you}. You will play: ${sc.ai}. (Role descriptions are in Vietnamese.)
+Invent concrete, realistic details: names, the project or building, floors, dates, quantities, a real problem to solve. Variation seed ${Math.random().toString(36).slice(2)}.
+Keep all ${T} at ${lv} level (A1-A2: short simple sentences).
+Return JSON only, no markdown:
+{"title": short title in ${X},
+"setting": 2 sentences in ${X} describing the situation and its concrete details,
+"goal": one sentence in ${X}: what the learner must achieve in the conversation,
+"you": the learner's role in ${X}, "ai": your role in ${X},
+"phrases": [6-8 useful ${T} sentence patterns for this exact situation, each {"text": in ${T}, "reading": pinyin/romaji/romanization or "", "meaning": in ${X}}],
+"vocab": [6-8 key ${T} terms for this situation (technical elevator terms when relevant), each {"word", "reading", "meaning" in ${X}}],
+"opening": your first line as ${sc.ai}, in ${T}, 1-2 sentences,
+"opening_tr": its translation in ${X}}`;
+  $("#tkStart").disabled=true;
+  try{
+    const r=await ask(prompt,$("#tkStatus"),"Đang dựng tình huống…",{cache:false});
+    p.talk={id,cs:cs||null,src:p.src,tgt:p.tgt,level:lv,title:r.title||sc.vi,setting:r.setting||"",goal:r.goal||"",you:r.you||sc.you,ai:r.ai||sc.ai,
+      phrases:r.phrases||[],vocab:r.vocab||[],turns:[{r:"ai",t:r.opening||"",tr:r.opening_tr||""}],done:false,final:null};
+    put("profile");renderTalk();$("#talk").scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){toast(errMsg(e))}finally{renderTalkPicker()}
+}
+function transcript(tk){return tk.turns.map(x=>(x.r==="ai"?"AI ("+tk.ai+"): ":"Learner: ")+x.t).join("\n")}
+function fbHTML(f,said,lang,ti){
+  if(!f)return"";
+  let h=`<div class="fbk"><span class="pill ${scoreCls(f.score)}">${esc(Math.round(f.score??0))}/100</span>`;
+  if(f.corrected&&f.corrected!==said)h+=`<div class="kicker">Câu đã sửa</div><div class="ruled">${diffHTML(said,f.corrected,lang,false)}</div>`;
+  if(f.upgraded)h+=`<div class="kicker">Nói chuyên nghiệp hơn <button class="say" data-sayt="${esc(f.upgraded)}" aria-label="Nghe">🔊</button></div><div class="ruled">${diffHTML(f.corrected||said,f.upgraded,lang,true)}</div>`;
+  (f.errors||[]).forEach((e,j)=>{const has=hasCard("Sửa: “"+e.wrong+"”");
+    h+=`<div class="err"><div class="fix"><del>${esc(e.wrong)}</del> → <ins>${esc(e.right)}</ins><span class="ty">${esc(e.type||"")}</span></div><div class="why">${esc(e.explain||"")}</div><button class="btn sm" data-te="${ti}-${j}" ${has?"disabled":""}>${has?"Đã lưu":"+ Ôn tập"}</button></div>`});
+  return h+"</div>";
+}
+function renderTalk(){
+  const box=$("#talk"),p=S.profile,tk=p.talk;
+  if(!tk||tk.tgt!==p.tgt||tk.src!==p.src){box.innerHTML="";return}
+  let h=`<div class="sheet brief"><div class="note">${esc(findScen(tk.id)?.vi||"")}${tk.cs?": "+esc(tk.cs):""} · ${esc(tk.level)}</div><div class="ltitle">${esc(tk.title)}</div>
+    <p>${esc(tk.setting)}</p><p><b>Vai của bạn:</b> ${esc(tk.you)}. <b>AI đóng vai:</b> ${esc(tk.ai)}.</p><p><b>Mục tiêu:</b> ${esc(tk.goal)}</p><p><button class="btn sm" data-drill="1">Dịch câu mẫu của tình huống này</button></p>`;
+  if(tk.phrases.length)h+=`<div class="kicker">Mẫu câu nên dùng</div>`+tk.phrases.map((x,i)=>`<div class="voc"><div class="w">${esc(x.text)}${x.reading?`<span class="rd">${esc(x.reading)}</span>`:""}<button class="say" data-sayt="${esc(x.text)}" aria-label="Nghe">🔊</button></div><div class="m">${esc(x.meaning||"")}</div><button class="btn sm" data-tp="${i}" ${hasCard(x.text)?"disabled":""}>${hasCard(x.text)?"Đã lưu":"+ Thêm thẻ"}</button></div>`).join("");
+  if(tk.vocab.length)h+=`<div class="kicker">Thuật ngữ, bấm để lưu vào sổ</div><div class="kw">${tk.vocab.map((k,i)=>`<button data-tv="${i}" ${hasCard(k.word)?"disabled":""}>${esc(k.word)}${k.reading?` <small>${esc(k.reading)}</small>`:""} <small>${esc(k.meaning)}</small></button>`).join("")}</div>`;
+  h+=`</div><div class="chat">`;
+  tk.turns.forEach((x,i)=>{
+    if(x.r==="ai")h+=`<div class="msg ai"><div class="who">${esc(tk.ai)}</div><div class="bub">${esc(x.t)}<button class="say" data-say="${i}" aria-label="Nghe câu này">🔊</button></div>${x.tr?`<details class="tr"><summary>Xem nghĩa</summary>${esc(x.tr)}</details>`:""}</div>`;
+    else h+=`<div class="msg me"><div class="who">Bạn</div><div class="bub">${esc(x.t)}</div>${fbHTML(x.fb,x.t,tk.tgt,i)}</div>`;
+  });
+  h+=`</div>`;
+  if(!tk.done){
+    h+=`<div class="composer"><div class="sugg" id="tkSugg"></div><textarea id="tkInput" rows="2" placeholder="Trả lời bằng ${esc(nm(tk.tgt))}… (Enter để gửi)"></textarea>
+    <div class="status" id="tkStatus2" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+    <div class="actions row"><button class="btn primary" id="tkSend">Gửi</button><button class="btn" id="tkHint">Gợi ý trả lời</button><button class="btn" id="tkEnd">Kết thúc và tổng kết</button></div></div>`;
+  }else{
+    const f=tk.final||{};
+    h+=`<div class="sheet"><div class="score"><b>${esc(f.score??0)}</b><span class="of">/ 100 cả cuộc hội thoại</span></div>${f.feedback?`<p class="feedback">${esc(f.feedback)}</p>`:""}`;
+    if(f.tips?.length)h+=`<div class="kicker">Câu nên nhớ cho tình huống này</div>`+f.tips.map((x,i)=>`<div class="voc"><div class="w">${esc(x.phrase)}<button class="say" data-sayt="${esc(x.phrase)}" aria-label="Nghe">🔊</button></div><div class="m">${esc(x.meaning||"")}</div><button class="btn sm" data-tt="${i}" ${hasCard(x.phrase)?"disabled":""}>${hasCard(x.phrase)?"Đã lưu":"+ Thêm thẻ"}</button></div>`).join("");
+    h+=`<div class="actions row"><button class="btn primary" id="tkAgain">Luyện lại tình huống này</button></div></div>`;
+  }
+  box.innerHTML=h;
+  const inp=$("#tkInput");if(inp)inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();talkSend()}});
+}
+$("#talk").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const tk=S.profile.talk;
+  const mark=()=>{b.disabled=true;if(b.dataset.tv==null)b.textContent="Đã lưu";toast("Đã thêm vào sổ")};
+  if(b.dataset.say!=null)say(tk.turns[+b.dataset.say].t,tk.tgt);
+  else if(b.dataset.sayt!=null)say(b.dataset.sayt,tk.tgt);
+  else if(b.dataset.tp!=null){const x=tk.phrases[+b.dataset.tp];if(addCard({front:x.text,back:x.meaning,reading:x.reading}))mark()}
+  else if(b.dataset.tv!=null){const x=tk.vocab[+b.dataset.tv];if(addCard({front:x.word,back:x.meaning,reading:x.reading}))mark()}
+  else if(b.dataset.tt!=null){const x=tk.final.tips[+b.dataset.tt];if(addCard({front:x.phrase,back:x.meaning}))mark()}
+  else if(b.dataset.te){const [i,j]=b.dataset.te.split("-").map(Number),x=tk.turns[i].fb.errors[j];
+    if(addCard({front:"Sửa: “"+x.wrong+"”",back:x.right,example:x.explain,kind:"error"}))mark()}
+  else if(b.dataset.opt!=null){$("#tkInput").value=b.dataset.opt;$("#tkInput").focus()}
+  else if(b.id==="tkSend")talkSend();
+  else if(b.id==="tkHint")talkHint();
+  else if(b.id==="tkEnd")talkEnd();
+  else if(b.id==="tkAgain")startTalk(tk.id,tk.cs);
+  else if(b.dataset.drill)drillScen(tk.id,tk.cs);
+});
+async function talkSend(){
+  const p=S.profile,tk=p.talk,inp=$("#tkInput"),text=inp.value.trim();if(!text)return;
+  const sc=findScen(tk.id),X=ln(p.explain),T=ln(tk.tgt),userTurns=tk.turns.filter(x=>x.r==="me").length;
+  const prompt=`You are role-playing a workplace conversation so a CEFR ${tk.level} learner can practise ${T}.
+Scenario: ${sc.en}. Setting: ${TALK[sc.g].ctx}. Situation: ${tk.setting}
+You play: ${tk.ai}. The learner plays: ${tk.you}. Learner's goal: ${tk.goal}
+Stay in character and speak like a real person in this job, with realistic workplace${sc.g==="elev"?" and elevator-industry":""} vocabulary, but keep your ${T} at ${tk.level} level. Move the conversation forward with a realistic question, detail or problem.
+Conversation so far:
+${transcript(tk)}
+The learner just said: "${text}"
+This is learner turn ${userTurns+1}; aim to finish naturally within about 8 learner turns.
+Return JSON only, no markdown:
+{"feedback": {"score": integer 0-100 for grammar, word choice and whether it is appropriate and polite for this workplace situation,
+ "corrected": the learner's line with MINIMUM edits (if they wrote in another language than ${T}, give the ${T} version and score 0),
+ "upgraded": a more natural, professional way to say it at ${nextLv(tk.level)} level,
+ "errors": [{"wrong": exact fragment from the learner line, "right": fix, "type": 1-3 word category in ${X}, "explain": one short sentence in ${X}}]},
+"reply": your next line as ${tk.ai}, in ${T}, 1-3 sentences,
+"reply_tr": its translation in ${X},
+"done": true only if the goal is clearly achieved or the conversation has reached a natural end}`;
+  $("#tkSend").disabled=true;
+  try{
+    const d=await ask(prompt,$("#tkStatus2"),"Đang sửa câu và trả lời…");
+    tk.turns.push({r:"me",t:text,fb:d.feedback||null});
+    if(d.reply)tk.turns.push({r:"ai",t:d.reply,tr:d.reply_tr||""});
+    put("profile");renderTalk();
+    if(d.done){toast("Bạn đã đạt mục tiêu tình huống");talkEnd()}
+    else{$("#talk .chat").lastElementChild?.scrollIntoView({behavior:"smooth",block:"center"});if(d.reply)say(d.reply,tk.tgt)}
+  }catch(e){toast(errMsg(e));const b=$("#tkSend");if(b)b.disabled=false}
+}
+async function talkHint(){
+  const p=S.profile,tk=p.talk;
+  try{const r=await ask(`Workplace role-play. The learner (CEFR ${tk.level}, learning ${ln(tk.tgt)}) plays ${tk.you}; the other person is ${tk.ai}. Goal: ${tk.goal}
+Conversation so far:
+${transcript(tk)}
+Suggest 3 different good next lines for the learner, in ${ln(tk.tgt)} at ${tk.level} level, polite and professional. Return JSON only: {"options": [{"text": in ${ln(tk.tgt)}, "tr": translation in ${ln(p.explain)}}]}`,$("#tkStatus2"),"Đang nghĩ gợi ý…",{tier:"quick"});
+    $("#tkSugg").innerHTML=(r.options||[]).map(o=>`<button data-opt="${esc(o.text)}">${esc(o.text)}<small>${esc(o.tr||"")}</small></button>`).join("");
+  }catch(e){toast(errMsg(e))}
+}
+async function talkEnd(){
+  const p=S.profile,tk=p.talk,mine=tk.turns.filter(x=>x.r==="me"&&x.fb);
+  if(!mine.length){p.talk=null;put("profile");renderTalk();return}
+  const score=Math.round(mine.reduce((a,x)=>a+(x.fb.score||0),0)/mine.length);
+  let f={score,feedback:"",tips:[]};
+  try{const r=await ask(`Workplace role-play review. Learner level CEFR ${tk.level}, learning ${ln(tk.tgt)}, played ${tk.you}. Goal: ${tk.goal}
+Transcript:
+${transcript(tk)}
+Return JSON only: {"feedback": 2-3 sentences in ${ln(p.explain)}: did they reach the goal, what sounded professional, what to improve, "tips": [3-5 key ${ln(tk.tgt)} phrases for this situation they should memorise, each {"phrase", "meaning" in ${ln(p.explain)}}]}`,$("#tkStatus2"),"Đang tổng kết…",{tier:"quick"});
+    f.feedback=r.feedback||"";f.tips=r.tips||[];}catch(e){}
+  tk.done=true;tk.final=f;p.done=p.done||{};const key="talk:"+tk.tgt+":"+tk.id;p.done[key]=Math.max(p.done[key]??0,score);
+  p.stats.talk=(p.stats.talk||0)+1;addScore(score);renderTalk();renderTalkPicker();
+}
+
+/* ---------- Journal ---------- */
+async function journalPrompt(){
+  const p=S.profile,lv=L().level;
+  const tp=selTopic?`on the topic "${selTopic.orig}" `:"",style=p.tgt==="en"?"Phrase it like an IELTS Writing Task 2 or Speaking Part 2 question. ":p.tgt==="zh"?`It must be answerable with HSK ${selTopic?.hsk||hskOf(lv)} vocabulary. `:"";
+  try{const r=await ask(`Suggest ONE short, personal journal-writing prompt ${tp}for a ${lv} learner of ${ln(p.tgt)}. ${style} Write the prompt in ${ln(p.explain)}, then the same prompt in ${ln(p.tgt)}. Seed ${Math.random().toString(36).slice(2)}. Return JSON only: {"prompt": string, "target": string}`,$("#jStatus"),"Đang nghĩ đề bài…",{tier:"quick",cache:false});
+    $("#jPromptText").textContent=(r.prompt||"")+(r.target?" — "+r.target:"");$("#jText").focus();
+  }catch(e){toast(errMsg(e))}
+}
+async function journalCheck(){
+  const p=S.profile,txt=$("#jText").value.trim();
+  if(txt.length<10)return toast("Viết thêm vài câu rồi hãy sửa bài");
+  const lv=L().level;
+  const prompt=`You are a ${ln(p.tgt)} writing teacher. The learner's CEFR level is ${lv}. Correct their journal entry.
+JOURNAL ENTRY:
+"""${txt}"""
+Return JSON only, no markdown:
+{"score": integer 0-100 for accuracy and naturalness relative to ${lv},
+"corrected": the full text with MINIMAL edits that fix grammar, spelling, punctuation, word choice and unnatural phrasing; keep the learner's meaning, voice and line breaks,
+"errors": [up to 12 most important, each {"wrong": exact fragment copied from the entry, "right": corrected fragment, "type": 1-3 word category in ${ln(p.explain)}, "explain": one short sentence in ${ln(p.explain)}}],
+"upgraded": the whole entry rewritten at level ${nextLv(lv)} with richer vocabulary, collocations and sentence structures, same meaning and line breaks,
+"vocab": [3-6 upgrades {"basic": a simple word or phrase the learner actually used, "word": a more advanced ${ln(p.tgt)} alternative used in "upgraded", "reading": pinyin/romaji/romanization if Chinese/Japanese/Korean else "", "meaning": meaning in ${ln(p.explain)}, "example": short example sentence in ${ln(p.tgt)}}],
+"feedback": 2-3 sentences in ${ln(p.explain)}: what was done well and the one habit to work on}
+If there are no errors, errors is [] and corrected equals the entry.`;
+  $("#jCheck").disabled=true;
+  try{
+    const d=await ask(prompt,$("#jStatus"),"Đang sửa nhật ký, thường mất 20–60 giây…");
+    const k="j_"+uid();
+    S.journal[k]={lang:p.tgt,date:Date.now(),text:txt,prompt:$("#jPromptText").textContent,level:lv,result:d};
+    put(k);p.stats.jr++;
+    const box=$("#jResult");box.innerHTML=analysisHTML(d,txt,p.tgt,{level:lv});bindAnalysis(box,d);
+    $("#jText").value="";$("#jPromptText").textContent="";updateCount();addScore(d.score);renderJournalList();
+    box.scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){toast(errMsg(e))}finally{$("#jCheck").disabled=false}
+}
+function renderJournalList(){
+  const t=S.profile.tgt,items=Object.entries(S.journal).filter(([,j])=>j.lang===t).sort((a,b)=>b[1].date-a[1].date);
+  const box=$("#jList");
+  if(!items.length){box.innerHTML=`<p class="empty">Chưa có trang nào bằng ${esc(nm(t))}. Viết vài câu về hôm nay là đủ để bắt đầu.</p>`;return}
+  box.innerHTML=items.map(([k,j])=>`<details class="entry" data-k="${k}"><summary><span class="d">${esc(new Date(j.date).toLocaleDateString("vi-VN",{day:"numeric",month:"numeric",year:"numeric"}))}</span><span class="sn">${esc(j.text.slice(0,90))}</span><span class="sc">${esc(Math.round(j.result?.score??0))}</span></summary><div class="body"></div></details>`).join("");
+  box.querySelectorAll("details").forEach(det=>det.addEventListener("toggle",()=>{
+    const body=det.querySelector(".body");if(!det.open||body.dataset.done)return;
+    const j=S.journal[det.dataset.k];body.dataset.done=1;
+    body.innerHTML=analysisHTML(j.result,j.text,j.lang,{level:j.level})+`<p><button class="linkbtn" data-delj="${det.dataset.k}">Xoá trang này</button></p>`;
+    bindAnalysis(body,j.result);
+    body.querySelector("[data-delj]").onclick=ev=>{ev.stopPropagation();if(!confirm("Xoá trang nhật ký này?"))return;delete S.journal[det.dataset.k];put(det.dataset.k);renderJournalList()};
+  }));
+}
+function updateCount(){const t=$("#jText").value.trim();const n=(S.profile.tgt==="zh"||S.profile.tgt==="ja")?t.replace(/\s/g,"").length:(t?t.split(/\s+/).length:0);$("#jCount").textContent=n?n+((S.profile.tgt==="zh"||S.profile.tgt==="ja")?" ký tự":" từ"):""}
+
+/* ---------- Review ---------- */
+let revealed=false,curKey=null;
+let rvFilter="all",rv={};
+const isSent=c=>c.kind==="sent";
+function rvDue(){return dueCards().filter(([,c])=>rvFilter==="all"||(rvFilter==="sent"?isSent(c):!isSent(c)))}
+function simScore(a,b,lang){
+  const clean=x=>tok(String(x||"").toLowerCase(),lang).filter(t=>t.trim()&&!/^[.,!?;:"“”()。，！？、]$/.test(t));
+  const A=clean(a),B=clean(b),n=A.length,m=B.length;if(!n||!m)return 0;
+  const dp=Array.from({length:n+1},()=>new Uint16Array(m+1));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)dp[i][j]=A[i]===B[j]?dp[i+1][j+1]+1:Math.max(dp[i+1][j],dp[i][j+1]);
+  return Math.round(200*dp[0][0]/(n+m));
+}
+const suggestQ=x=>x>=90?3:x>=75?2:x>=50?1:0;
+function gradesHTML(c,sug){return`<div class="grades" id="grades">${[["Quên","again"],["Khó",""],["Nhớ",""],["Dễ",""]].map(([l,cl],q)=>`<button class="${cl}${sug===q?" sug":""}" data-q="${q}">${l}<small>${ivLabel(c,q)}</small></button>`).join("")}</div>${sug!=null?`<p class="note">Gợi ý chấm: <b>${["Quên","Khó","Nhớ","Dễ"][sug]}</b>. Bạn có thể chọn mức khác.</p>`:""}`}
+function renderReview(){
+  const box=$("#rv"),all=cardsFor(),dAll=dueCards(),due=rvDue();
+  const nS=dAll.filter(([,c])=>isSent(c)).length,nV=dAll.length-nS,totS=all.filter(([,c])=>isSent(c)).length;
+  let h=`<div class="seg" role="group" aria-label="Loại thẻ">${[["all",`Tất cả (${dAll.length})`],["sent",`Câu đã học (${nS})`],["vocab",`Từ và cụm (${nV})`]].map(([k,l])=>`<button data-rf="${k}" aria-pressed="${k===rvFilter}">${l}</button>`).join("")}</div>
+  <label class="note" style="display:flex;gap:.45rem;align-items:center;margin:.6rem 0 0"><input type="checkbox" id="autoSent" ${S.profile.autoSent!==false?"checked":""}> Tự đưa các câu đã dịch ở Dịch và Game vào lịch ôn (${totS} câu)</label>`;
+  if(!all.length){box.innerHTML=h+`<p class="empty">Sổ ${esc(nm(S.profile.tgt))} chưa có thẻ nào. Làm một bài dịch hoặc game viết, các câu bạn đã dịch sẽ tự vào đây để ôn.</p>`;curKey=null;return}
+  if(!due.length){
+    const pool=all.filter(([,c])=>rvFilter==="all"||(rvFilter==="sent"?isSent(c):!isSent(c)));
+    const next=pool.map(([,c])=>c.due).sort((a,b)=>a-b)[0];
+    let msg="Chưa có thẻ loại này.";
+    if(next){const m=Math.max(1,Math.round((next-Date.now())/60000));msg=`Thẻ tiếp theo đến hạn sau khoảng ${m<60?m+" phút":m<1440?Math.round(m/60)+" giờ":Math.round(m/1440)+" ngày"}. Ghé lại lúc đó để ôn đúng thời điểm.`}
+    box.innerHTML=h+`<div class="flash"><div class="front">Xong lượt ôn${rvFilter==="all"?" hôm nay":""}</div><p class="note">${esc(msg)}</p></div>`;curKey=null;return}
+  const [k,c]=due[0];
+  if(rv.key!==k){rv={key:k,mode:isSent(c)?(S.profile.rvMode||"recall"):"flip"};revealed=false}
+  curKey=k;
+  h+=`<div class="note" style="margin-top:.8rem">Còn ${due.length} thẻ đến hạn</div>`;
+  h+=isSent(c)?sentHTML(c):flipHTML(c);
+  box.innerHTML=h;
+  const inp=$("#rvIn");if(inp){inp.focus();inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();$("#rvCheck")?.click()}})}
+  if(isSent(c)&&rv.mode==="apply"&&!rv.apply&&!rv.busy)genApply(c);
+}
+function resultBox(src,said,r,lang,extra){
+  const sc=Math.round(r.score??0);
+  return`<div class="rc" style="text-align:left"><div class="rc-h"><span class="rc-n">Kết quả</span><span class="rc-s ${scoreCls(sc)}">${sc}/100</span></div>${src?`<div class="rc-src">${esc(src)}</div>`:""}
+  <div class="rc-me"><b>Bài của bạn:</b> ${said?esc(said):'<span class="note">(không nhớ)</span>'}</div>
+  ${r.corrected?`<div class="box ok"><b>${r.cLabel||"Câu sửa"}:</b> ${said&&r.cDiff!==false?diffHTML(said,r.corrected,lang,"fix"):esc(r.corrected)}</div>`:""}
+  ${r.upgraded?`<div class="box up"><b>Nâng cao:</b> ${esc(r.upgraded)}<button class="say" data-sayt="${esc(r.upgraded)}" aria-label="Nghe">🔊</button></div>`:""}
+  ${r.tip?`<p class="note" style="margin:.7rem 0 0">💡 ${esc(r.tip)}</p>`:""}${errList(r.errors,"re",0)}${extra||""}</div>`;
+}
+function sentHTML(c){
+  const lang=c.lang;
+  let h=`<div class="seg" role="group" aria-label="Cách ôn câu" style="margin-top:.6rem">${[["recall","Dịch lại câu đã học"],["apply","Vận dụng vào câu mới"]].map(([k,l])=>`<button data-rm="${k}" aria-pressed="${rv.mode===k}">${l}</button>`).join("")}</div>`;
+  if(rv.mode==="recall"){
+    h+=`<div class="flash" style="text-align:left"><div class="kind">Dịch lại câu bạn đã học${c.topic?" · "+esc(c.topic):""}</div><div class="front" style="font-size:1.35rem">${esc(c.front)}</div>`;
+    if(!rv.res)h+=`<textarea id="rvIn" rows="2" style="margin-top:1rem" placeholder="Dịch sang ${esc(nm(lang))} rồi bấm Enter…">${esc(rv.ans||"")}</textarea>
+      <div class="status" id="rvStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+      <div class="actions row"><button class="btn primary" id="rvCheck">Kiểm tra</button><button class="btn" id="rvGive">Không nhớ, xem đáp án</button></div>`;
+    else h+=resultBox("",rv.ans,{score:rv.res.score,corrected:c.example||c.back,cLabel:"Câu đúng",upgraded:c.back!==c.example?c.back:"",tip:rv.res.tip},lang,
+      rv.res.ai||!rv.ans?"":`<div class="actions"><button class="linkbtn" id="rvAI">Câu của bạn khác chữ nhưng đúng ý? Nhờ AI chấm lại</button></div><div class="status" id="rvStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>`);
+    h+=`</div>`;
+    if(rv.res)h+=gradesHTML(c,suggestQ(rv.res.score));
+  }else{
+    h+=`<div class="flash" style="text-align:left"><div class="kind">Vận dụng: dịch câu mới dùng lại cấu trúc đã học</div>`;
+    if(!rv.apply)h+=`<div class="status" id="rvStatus"><span class="dot"></span><span class="msg">Đang tạo câu vận dụng…</span><button class="linkbtn" data-stop>Dừng</button></div>`;
+    else{
+      h+=`<div class="front" style="font-size:1.35rem">${esc(rv.apply.vi)}</div>${rv.apply.focus?`<p class="note">Cần dùng: ${esc(rv.apply.focus)}</p>`:""}`;
+      if(!rv.res)h+=`<textarea id="rvIn" rows="2" placeholder="Dịch sang ${esc(nm(lang))} rồi bấm Enter…">${esc(rv.ans||"")}</textarea>
+        <div class="status" id="rvStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+        <div class="actions row"><button class="btn primary" id="rvCheck">Chấm</button><button class="btn" id="rvNewApply">Đổi câu khác</button></div>`;
+      else h+=resultBox("",rv.ans,rv.res,lang,`<div class="box ref"><b>Câu gốc đã học:</b> ${esc(c.front)}<br>${esc(c.back)}</div>`);
+    }
+    h+=`</div>`;
+    if(rv.res)h+=gradesHTML(c,suggestQ(rv.res.score));
+  }
+  return h;
+}
+function flipHTML(c){
+  let h=`<div class="flash"><div class="kind">${c.kind==="error"?"Lỗi bạn từng mắc, viết lại cho đúng":c.kind==="gem"?"💎 Cụm trong rương báu vật":"Nhớ nghĩa của từ này"}</div>
+  <div class="front">${esc(c.front)}</div>
+  <div class="back" ${revealed?"":"hidden"}>${c.reading?`<div class="note">${esc(c.reading)}</div>`:""}<div class="ans">${esc(c.back)}</div>${c.example?`<div class="ex">${esc(c.example)}</div>`:""}</div>`;
+  if(rv.mode==="use"){
+    if(!rv.res)h+=`<div style="text-align:left;margin-top:1rem"><label class="f" for="rvIn">Đặt một câu ${esc(nm(c.lang))} có dùng “${esc(c.front)}”</label><textarea id="rvIn" rows="2">${esc(rv.ans||"")}</textarea>
+      <div class="status" id="rvStatus" hidden><span class="dot"></span><span class="msg"></span><button class="linkbtn" data-stop>Dừng</button></div>
+      <div class="actions row"><button class="btn primary" id="rvCheck">Chấm câu</button></div></div>`;
+    else h+=resultBox("",rv.ans,rv.res,c.lang,"");
+  }else if(!revealed)h+=`<div class="actions row" style="justify-content:center"><button class="btn primary" id="reveal">Hiện đáp án</button>${c.kind!=="error"?`<button class="btn" id="rvUse">Vận dụng: đặt câu</button>`:""}</div>`;
+  h+=`</div>`;
+  if(revealed)h+=gradesHTML(c,rv.res?suggestQ(rv.res.score):null);
+  return h;
+}
+async function genApply(c){
+  const p=S.profile;if(!sample){rv.mode="recall";toast(errMsg({code:"unavailable"}));return renderReview()}rv.busy=true;const key=rv.key;
+  try{const r=await sample.json(`Create ONE new ${ln(p.src)} sentence for a ${ln(c.lang)} learner (CEFR ${L(c.lang).level}) to translate. It must reuse the key grammar structure and the most useful expressions of this studied sentence pair, but in a different situation with different content.
+Studied pair: ${ln(p.src)}: "${c.front}" / ${ln(c.lang)}: "${c.back}"
+Variation seed ${Math.random().toString(36).slice(2)}.
+Return JSON only: {"vi": the new sentence in ${ln(p.src)}, "focus": the ${ln(c.lang)} structure or expression the learner should reuse, under 10 words}`,{modelTier:"quick",cache:false,signal:(ctl=new AbortController()).signal});
+    if(rv.key===key){rv.apply=r;rv.busy=false;renderReview()}
+  }catch(e){rv.busy=false;if(rv.key===key){rv.mode="recall";toast(errMsg(e));renderReview()}}
+}
+async function rvAICheck(c,kind){
+  const p=S.profile,ans=rv.ans,T=ln(c.lang),X=ln(p.explain),lv=L(c.lang).level;
+  let prompt;
+  if(kind==="recall")prompt=`A ${T} learner (CEFR ${lv}) is reviewing a sentence they studied before.
+Source (${ln(p.src)}): "${c.front}"
+Model translations: "${c.example}" / "${c.back}"
+Learner's answer: "${ans}"
+Other correct wordings are fine. Judge meaning, grammar and naturalness. Return JSON only: {"score": integer 0-100, "tip": one short sentence in ${X}}`;
+  else if(kind==="apply")prompt=`A ${T} learner (CEFR ${lv}) must translate this ${ln(p.src)} sentence, reusing the structure "${rv.apply.focus||""}" learned from: "${c.back}".
+Sentence: "${rv.apply.vi}"
+Learner's translation: "${ans}"
+Return JSON only: {"score": integer 0-100 (lower it if the target structure was not reused), "corrected": minimal-edit correction, "upgraded": a more natural, advanced version, "errors": [{"wrong","right","type" (1-3 words in ${X}),"explain" (one short sentence in ${X})}], "tip": one short sentence in ${X}}`;
+  else prompt=`A ${T} learner (CEFR ${lv}) wrote their own sentence using "${c.front}" (meaning: ${c.back}).
+Sentence: "${ans}"
+Judge whether "${c.front}" is used correctly and naturally, plus grammar. Return JSON only: {"score": integer 0-100, "corrected": minimal-edit correction, "upgraded": a more natural example using it, "errors": [{"wrong","right","type" (1-3 words in ${X}),"explain" (one short sentence in ${X})}], "tip": one short sentence in ${X}}`;
+  const key=rv.key;
+  try{const r=await ask(prompt,$("#rvStatus"),"Đang chấm…",{tier:kind==="recall"?"quick":"default"});
+    if(rv.key!==key)return;
+    if(kind==="recall")rv.res={score:Math.round(r.score??0),tip:r.tip||"",ai:true};else rv.res=Object.assign({},r,{score:Math.round(r.score??0)});
+    if(kind==="use")revealed=true;
+    renderReview();
+  }catch(e){toast(errMsg(e))}
+}
+$("#rv").addEventListener("change",e=>{if(e.target.id==="autoSent"){S.profile.autoSent=e.target.checked;put("profile");renderReview()}});
+$("#rv").addEventListener("input",e=>{if(e.target.id==="rvIn")rv.ans=e.target.value});
+$("#rv").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const c=curKey&&S.cards[curKey];
+  if(b.dataset.rf){rvFilter=b.dataset.rf;rv={};renderReview();return}
+  if(b.dataset.sayt!=null)return say(b.dataset.sayt,c?.lang||S.profile.tgt);
+  if(b.dataset.q!=null)return rate(+b.dataset.q);
+  if(!c)return;
+  if(b.dataset.rm){S.profile.rvMode=b.dataset.rm;put("profile");rv={key:curKey,mode:b.dataset.rm};renderReview()}
+  else if(b.dataset.re){const [,j]=b.dataset.re.split("-").map(Number),x=rv.res?.errors?.[j];if(x&&addCard({front:"Sửa: “"+x.wrong+"”",back:x.right,example:x.explain,kind:"error"})){b.disabled=true;b.textContent="Đã lưu"}}
+  else if(b.id==="reveal")reveal();
+  else if(b.id==="rvUse"){rv.mode="use";renderReview()}
+  else if(b.id==="rvGive"){rv.ans="";rv.res={score:0};revealed=true;renderReview()}
+  else if(b.id==="rvNewApply"){rv.apply=null;rv.ans="";renderReview()}
+  else if(b.id==="rvAI")rvAICheck(c,"recall");
+  else if(b.id==="rvCheck"){
+    const ans=($("#rvIn")?.value||"").trim();if(!ans)return toast("Hãy viết câu trả lời trước");rv.ans=ans;
+    if(rv.mode==="recall"){const sim=Math.max(simScore(ans,c.example,c.lang),simScore(ans,c.back,c.lang));rv.res={score:sim,tip:sim>=90?"Rất sát câu đã học.":sim>=60?"Khá gần, so sánh với câu đúng bên dưới.":"Còn khác nhiều, xem kỹ câu đúng rồi ôn lại sớm."};revealed=true;renderReview()}
+    else rvAICheck(c,rv.mode==="apply"?"apply":"use");
+  }
+});
+function reveal(){if(!curKey||revealed||!$("#reveal"))return;revealed=true;renderReview();$("#grades button[data-q='2']")?.focus()}
+function rate(q){if(!curKey||!revealed)return;const c=S.cards[curKey];if(!c)return;Object.assign(c,schedule(c,q));put(curKey);S.profile.stats.rv++;touchStreak();put("profile");rv={};revealed=false;renderBadge();renderReview()}
+document.addEventListener("keydown",e=>{
+  if(document.querySelector("#v-review").hidden||/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;
+  if(e.code==="Space"&&$("#reveal")){e.preventDefault();reveal()}
+  if(["1","2","3","4"].includes(e.key))rate(+e.key-1);
+});
+
+/* ---------- Vocab ---------- */
+async function vFill(){
+  const p=S.profile,f=$("#vFront").value.trim();if(!f)return toast("Nhập từ cần tra trước");
+  try{const r=await ask(`For the ${ln(p.tgt)} word or phrase "${f}", give its meaning in ${ln(p.explain)}, a reading (pinyin for Chinese, romaji for Japanese, romanization for Korean, otherwise IPA) and one short natural example sentence at CEFR ${L().level}. Return JSON only: {"meaning": string, "reading": string, "example": string}`,$("#vStatus"),"Đang tra…",{tier:"quick"});
+    $("#vBack").value=r.meaning||"";$("#vEx").value=r.example||"";$("#vFront").dataset.reading=r.reading||"";
+  }catch(e){toast(errMsg(e))}
+}
+function vAdd(){
+  const f=$("#vFront").value.trim(),b=$("#vBack").value.trim();
+  if(!f||!b)return toast("Cần có từ và nghĩa");
+  if(!addCard({front:f,back:b,example:$("#vEx").value.trim(),reading:$("#vFront").dataset.reading||""}))return toast("Từ này đã có trong sổ");
+  $("#vFront").value=$("#vBack").value=$("#vEx").value="";$("#vFront").dataset.reading="";toast("Đã thêm “"+f+"”");renderVocab();
+}
+function renderVocab(){
+  const q=$("#vSearch").value.trim().toLowerCase(),all=cardsFor().sort((a,b)=>b[1].created-a[1].created);
+  const items=all.filter(([,c])=>!q||(c.front+" "+c.back).toLowerCase().includes(q));
+  $("#vCountH").textContent=`Thẻ ${nm(S.profile.tgt)} của bạn (${all.length})`;
+  if(!items.length){$("#vList").innerHTML=`<p class="empty">${all.length?"Không tìm thấy thẻ nào khớp.":"Chưa có thẻ nào. Thêm từ đầu tiên ở trên."}</p>`;return}
+  const now=Date.now();
+  $("#vList").innerHTML=items.map(([k,c])=>{const d=Math.round((c.due-now)/864e5);
+    return`<div class="item"><div class="t">${esc(c.front)}${c.reading?` <span class="note">${esc(c.reading)}</span>`:""}</div>
+    <div class="s">${esc(c.back)} · ${c.due<=now?"đến hạn ôn":d<1?"ôn trong hôm nay":"ôn sau "+d+" ngày"}</div>
+    <button class="del" data-k="${k}" aria-label="Xoá thẻ ${esc(c.front)}">✕</button></div>`}).join("");
+}
+$("#vList").addEventListener("click",e=>{const b=e.target.closest(".del");if(!b)return;delete S.cards[b.dataset.k];put(b.dataset.k);renderVocab();renderBadge()});
+
+/* ---------- Progress ---------- */
+function renderProgress(){
+  const t=S.profile.tgt,l=L(),rec=l.scores.slice(-WINDOW),avg=rec.length?Math.round(rec.reduce((a,b)=>a+b,0)/rec.length):0;
+  $("#pLevel").firstChild.nodeValue=l.level;$("#pLang").textContent=nm(t);
+  $("#pLadder").innerHTML=LV.map(x=>`<span class="${LV.indexOf(x)<=LV.indexOf(l.level)?"on":""}">${x}</span>`).join("");
+  $("#pXp").style.width=Math.min(100,l.xp/XP_NEED*100)+"%";
+  $("#pXpText").textContent=l.level==="C2"?"Bạn đã ở trình độ cao nhất.":`${l.xp}/${XP_NEED} XP · điểm trung bình ${rec.length} bài gần nhất: ${avg}`;
+  $("#pRule").textContent=l.level==="C2"?"":`Tự lên ${nextLv(l.level)} khi đủ ${XP_NEED} XP và điểm trung bình ${WINDOW} bài gần nhất từ ${AVG_NEED} trở lên.`;
+  const due=dueCards().length,st=S.profile.stats,streak=S.profile.streak;
+  const alive=streak.last===todayStr()||(()=>{const y=new Date();y.setDate(y.getDate()-1);return streak.last===todayStr(y)})();
+  $("#pStats").innerHTML=`<div><b>${alive?streak.count:0}</b>ngày học liên tiếp</div><div><b>${cardsFor().length}</b>thẻ trong sổ</div><div><b>${due}</b>thẻ đến hạn</div><div><b>${st.tr}</b>bài dịch</div><div><b>${st.games||0}</b>bài game viết</div><div><b>${st.talk||0}</b>cuộc hội thoại</div><div><b>${st.jr}</b>trang nhật ký</div><div><b>${st.rv}</b>lượt ôn thẻ</div>`;
+  const sc=l.scores.slice(-20);
+  if(sc.length<2){$("#pSpark").innerHTML=`<p class="empty">Làm thêm vài bài dịch hoặc nhật ký để thấy đường tiến bộ.</p>`}
+  else{const W=300,H=100,pts=sc.map((v,i)=>[8+i*(W-16)/(sc.length-1),H-8-v/100*(H-16)]);
+    $("#pSpark").innerHTML=`<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Điểm ${sc.length} bài gần nhất">
+    <line x1="0" x2="${W}" y1="${H-8-AVG_NEED/100*(H-16)}" y2="${H-8-AVG_NEED/100*(H-16)}" stroke="var(--line)" stroke-dasharray="4 4"/>
+    <polyline fill="none" stroke="var(--red)" stroke-width="2.5" vector-effect="non-scaling-stroke" points="${pts.map(p=>p.join(",")).join(" ")}"/>
+    ${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="var(--red)"/>`).join("")}</svg><p class="note">Đường nét đứt là mốc ${AVG_NEED} điểm để lên trình độ.</p>`}
+  $("#explain").value=S.profile.explain;
+}
+
+/* ---------- Header, nav ---------- */
+function fillSelect(sel,val){sel.innerHTML=Object.entries(LANGS).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");sel.value=val}
+function renderHeader(){
+  const p=S.profile;fillSelect($("#src"),p.src);fillSelect($("#tgt"),p.tgt);
+  $("#level").innerHTML=LV.map(x=>`<option>${x}</option>`).join("");$("#level").value=L().level;
+  $("#trLead").textContent=`Chọn chủ đề${p.tgt==="en"?" IELTS":p.tgt==="zh"?" theo cấp HSK":""}, dịch từng câu từ ${nm(p.src)} sang ${nm(p.tgt)}. AI chấm từng câu, sửa lỗi và đưa bản nâng cao.`;
+  $("#srcLabel").textContent=`Câu gốc (${nm(p.src)})`;$("#trLabel").textContent=`Bản dịch của bạn (${nm(p.tgt)})`;
+  $("#jLead").textContent=`Viết vài câu bằng ${nm(p.tgt)} mỗi ngày. Bài được sửa bằng bút đỏ, kèm bản nâng cấp và từ vựng hay hơn.`;
+  $("#jText").placeholder=`Viết bằng ${nm(p.tgt)} về hôm nay của bạn…`;
+  renderBadge();
+}
+function renderBadge(){const n=dueCards().length;$("#dueBadge").textContent=n?String(n):""}
+function renderAll(){renderHeader();renderGameSetup();renderGame();renderTalkPicker();renderPhr();renderTalk();renderTopics();renderLesson();renderReview();renderVocab();renderJournalList();renderProgress()}
+const VIEWS=["translate","game","talk","journal","review","vocab","progress"];
+function show(v){if(!VIEWS.includes(v))v="translate";
+  VIEWS.forEach(x=>$("#v-"+x).hidden=x!==v);
+  document.querySelectorAll(".tab").forEach(t=>{if(t.dataset.v===v)t.setAttribute("aria-current","page");else t.removeAttribute("aria-current")});
+  if(v==="review")renderReview();if(v==="vocab")renderVocab();if(v==="progress")renderProgress();if(v==="journal")renderJournalList();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{location.hash=t.dataset.v});
+window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+
+function changeLang(){const p=S.profile;hskView=null;selTopic=null;gmTopic=null;window.speechSynthesis?.cancel();$("#trResult").innerHTML="";$("#jResult").innerHTML="";$("#focusNote").textContent="";put("profile");renderAll();show(location.hash.slice(1))}
+$("#src").onchange=e=>{const p=S.profile,v=e.target.value;if(v===p.tgt)p.tgt=p.src;p.src=v;changeLang()};
+$("#tgt").onchange=e=>{const p=S.profile,v=e.target.value;if(v===p.src)p.src=p.tgt;p.tgt=v;changeLang()};
+$("#swap").onclick=()=>{const p=S.profile;[p.src,p.tgt]=[p.tgt,p.src];changeLang();toast("Đang học "+nm(p.tgt))};
+$("#level").onchange=e=>{const l=L();l.level=e.target.value;l.xp=0;put("profile");hskView=null;renderTopics();renderGameSetup();renderProgress();toast("Đã chuyển sang trình độ "+l.level)};
+$("#explain").onchange=e=>{S.profile.explain=e.target.value;put("profile")};
+$("#newSent").onclick=newSentence;$("#gradeBtn").onclick=grade;
+$("#jPromptBtn").onclick=journalPrompt;$("#jCheck").onclick=journalCheck;$("#jText").oninput=updateCount;
+$("#vFill").onclick=vFill;$("#vAdd").onclick=vAdd;$("#vSearch").oninput=renderVocab;
+
+let tt;function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),3200)}
+
+/* ---------- Boot ---------- */
+loadLocal();fillSelect($("#explain"),S.profile.explain);renderAll();show(location.hash.slice(1));
+if(dueCards().length)setTimeout(()=>toast(`Bạn có ${dueCards().length} thẻ đến hạn ôn hôm nay`),600);
+setInterval(renderBadge,60000);
+if(window.claude){
+  claude.use("sample").then(s=>{sample=s;if(!s)$("#aiWarn").hidden=false});
+  initCloud();initNews();
+}else{$("#aiWarn").hidden=false;initNews()}
+</script>
+</body>
+</html>
